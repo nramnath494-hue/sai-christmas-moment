@@ -43,7 +43,7 @@ const gifts: GiftType[] = [
     id: 3, 
     name: "A Cuddly Friend", 
     type: 'image', 
-    src: "https://images.unsplash.com/photo-1559454403-b8fb87521bc7?auto=format&fit=crop&w=600&q=80",
+    src: "/teddy2.jpg",
     color: "bg-amber-100"
   },
   { 

@@ -29,9 +29,9 @@ export default function ReflectionOverlay() {
       {/* Background Image */}
       <motion.div 
         className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1478265409131-1f65c88f965c?q=80&w=2565&auto=format&fit=crop')] bg-cover bg-center"
-        initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 2.5, ease: "easeOut" }}
+        initial={{ scale: 1.1, opacity: 0, filter: "blur(10px)" }}
+        animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+        transition={{ duration: 4, ease: "easeOut" }}
       />
 
       {/* Dark Overlay */}
@@ -66,9 +66,9 @@ export default function ReflectionOverlay() {
       {/* Glassmorphism Text Container */}
       <motion.div 
         className={`relative z-10 text-center w-full max-w-3xl p-6 md:p-20 rounded-2xl md:rounded-[3rem] border border-white/10 bg-black/30 backdrop-blur-2xl shadow-2xl space-y-6 md:space-y-12 ${playfair.className}`}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
+        initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 2.5, delay: 1, ease: "easeOut" }}
       >
         <motion.p 
           initial={{ opacity: 0, filter: "blur(10px)", y: 20 }} 
