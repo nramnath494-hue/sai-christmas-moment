@@ -1,8 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Cormorant_Garamond } from 'next/font/google';
-
-const font = Cormorant_Garamond({ subsets: ['latin'], weight: ['400', '600'] });
+import { VolumeX } from 'lucide-react';
 
 interface Props {
   onStop: () => void;
@@ -10,17 +8,18 @@ interface Props {
 
 export default function FinalStop({ onStop }: Props) {
   return (
-    <motion.div 
-      className={`absolute inset-0 flex flex-col items-center justify-center bg-black/90 z-50 ${font.className}`}
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-    >
-      <p className="text-3xl text-white/80 mb-10 italic tracking-wide">Until next time...</p>
-      <button 
-        onClick={onStop}
-        className="px-10 py-3 border border-white/20 rounded-full text-white/60 hover:bg-white/10 hover:text-white transition-all uppercase tracking-[0.2em] text-sm"
+    <div className="absolute inset-0 z-50 flex flex-col items-center justify-end pb-20 pointer-events-none">
+      <motion.div 
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}
+        className="pointer-events-auto"
       >
-        Stop Music
-      </button>
-    </motion.div>
+        <button 
+          onClick={onStop}
+          className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white/50 hover:text-white px-6 py-2 rounded-full text-xs uppercase tracking-widest transition-all border border-white/5 flex items-center gap-2"
+        >
+          <VolumeX size={14} /> Silence the Night
+        </button>
+      </motion.div>
+    </div>
   );
 }

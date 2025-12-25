@@ -8,7 +8,7 @@ const font = Cormorant_Garamond({ subsets: ['latin'], weight: ['400', '600'] });
 const scriptFont = Great_Vibes({ subsets: ['latin'], weight: ['400'] });
 
 const FLOATING_MESSAGES = [
-  "Hope", "Love", "Joy", "Peace", "Dreams", "Magic", "You & Me", "Forever", "Sparkle", "Wishes"
+  "Hope", "Love", "Joy", "Peace", "Dreams", "Magic", "Forever", "Sparkle", "Wishes"
 ];
 
 const SPECIAL_MESSAGES = [

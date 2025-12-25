@@ -2,7 +2,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cormorant_Garamond, Great_Vibes } from 'next/font/google';
-import { Gift, Download, ArrowRight, Heart, X, Watch, Clock, Sparkles } from 'lucide-react';
+import { Gift, Download, ArrowRight, Heart, X, Watch, Clock, Sparkles, ChevronDown } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 const font = Cormorant_Garamond({ subsets: ['latin'], weight: ['400', '600', '700'] });
@@ -50,7 +50,7 @@ const gifts: GiftType[] = [
     id: 4, 
     name: "A Letter", 
     type: 'letter', 
-    content: "Dear Sai,\n\nI wanted to give you things that remind me of you. Beauty, time, comfort, and happiness.\n\nMerry Christmas.\n\n- Narendra",
+    content: "Dear Sai,\n\nAs the year winds down and the lights glow a little brighter, I found myself thinking of you.\n\nI wanted to share a few small things that remind me of the spark you carry—the way you make time feel a little more special, and the quiet joy you bring just by being yourself.\n\nThis season is about magic, but I think the best kind of magic is the kind we find in simple moments and genuine connections.\n\nI hope these little gifts bring a smile to your face. Thank you for being a beautiful part of my story this year.\n\nMerry Christmas.\n\n- Narendra",
     color: "bg-slate-100"
   },
   { 
@@ -234,10 +234,15 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen }: any
             )}
 
             {gift.type === 'letter' && (
-              <div className="w-full h-full bg-[#fdfbf7] text-slate-800 p-2 md:p-4 rounded-lg shadow-inner overflow-y-auto text-center flex flex-col justify-center">
+              <div className="w-full h-full bg-[#fdfbf7] text-slate-800 p-2 md:p-4 rounded-lg shadow-inner relative">
+                <div className="overflow-y-auto h-full text-center flex flex-col items-center py-4 px-2 scrollbar-hide">
                 <p className="whitespace-pre-wrap text-[10px] md:text-xs leading-relaxed font-serif italic">
                   {gift.content}
                 </p>
+                </div>
+                <div className="absolute bottom-2 left-0 right-0 flex justify-center pointer-events-none opacity-40 animate-bounce">
+                  <span className="text-[8px] uppercase tracking-widest text-slate-400 flex items-center gap-1">Scroll <ChevronDown size={8} /></span>
+                </div>
               </div>
             )}
 

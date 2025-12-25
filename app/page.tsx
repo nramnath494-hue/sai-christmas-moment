@@ -14,6 +14,7 @@ import ReflectionOverlay from '@/components/ReflectionOverlay';
 import RecordPlayer, { PLAYLIST } from '@/components/RecordPlayer';
 import GiftUnboxing from '@/components/GiftUnboxing';
 import ThankYou from '@/components/ThankYou';
+import FinalStop from '@/components/FinalStop';
 import CursorSparkles from '@/components/CursorSparkles';
 import Fireworks from '@/components/Fireworks';
 import FoggyWindow from '@/components/FoggyWindow';
@@ -101,11 +102,13 @@ export default function Home() {
         {act === 11 && <FireflyGarden key="act11" onComplete={() => setAct(12)} />}
         {act === 12 && <ReflectionOverlay key="act12" />}
         {act === 13 && <GiftUnboxing key="act13" onComplete={() => setAct(14)} />}
-        {/* Final Stop */}
-        {act === 14 && (
+          
+        {act === 14 && <ThankYou key="act14" onComplete={() => setAct(15)} />}
+        
+        {act === 15 && (
           <>
             <Fireworks />
-            <ThankYou key="act14" onStop={stopMusic} />
+            <FinalStop key="act15" onStop={stopMusic} />
           </>
         )}
       </AnimatePresence>
