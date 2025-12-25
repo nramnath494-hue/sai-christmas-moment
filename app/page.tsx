@@ -14,6 +14,8 @@ import ReflectionOverlay from '@/components/ReflectionOverlay';
 import RecordPlayer from '@/components/RecordPlayer';
 import GiftUnboxing from '@/components/GiftUnboxing';
 import FinalStop from '@/components/FinalStop';
+import CursorSparkles from '@/components/CursorSparkles';
+import Fireworks from '@/components/Fireworks';
 
 export const force_dynamic = 'force-dynamic'; // Ensures animations work correctly on Vercel
 
@@ -65,6 +67,9 @@ export default function Home() {
       {/* Snow is global but freezes in Act 5 (MomentFreeze) */}
       {act > 2 && act !== 3 && <Snow frozen={act === 5} />}
 
+      {/* Magical Cursor Trail (Global) */}
+      <CursorSparkles />
+
       <AnimatePresence mode="wait">
         {act === 1 && <LetterCard key="act1" onStart={() => setAct(2)} />}
         {act === 2 && <RecordPlayer key="act2" onPlay={startMusic} />}
@@ -76,7 +81,12 @@ export default function Home() {
         {act === 8 && <ReflectionOverlay key="act8" />}
         {act === 9 && <GiftUnboxing key="act9" onComplete={() => setAct(10)} />}
         {/* Final Stop */}
-        {act === 10 && <FinalStop key="act10" onStop={stopMusic} />}
+        {act === 10 && (
+          <>
+            <Fireworks />
+            <FinalStop key="act10" onStop={stopMusic} />
+          </>
+        )}
       </AnimatePresence>
       
       {/* Optional: Floating Stop Button for Act 8 */}
