@@ -2,7 +2,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cormorant_Garamond, Great_Vibes } from 'next/font/google';
-import { Gift, Download, ArrowRight, Heart, X, Watch, Clock } from 'lucide-react';
+import { Gift, Download, ArrowRight, Heart, X, Watch, Clock, Sparkles } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 const font = Cormorant_Garamond({ subsets: ['latin'], weight: ['400', '600', '700'] });
@@ -36,7 +36,7 @@ const gifts: GiftType[] = [
     id: 2, 
     name: "For Your Time", 
     type: 'image', 
-    src: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=600&q=80",
+    src: "https://images.unsplash.com/photo-1619134778706-7015533a6150?q=80&w=600&auto=format&fit=crop",
     color: "bg-indigo-100"
   },
   { 
@@ -50,7 +50,7 @@ const gifts: GiftType[] = [
     id: 4, 
     name: "A Letter", 
     type: 'letter', 
-    content: "Dear Sai,\n\nI wanted to give you things that remind me of you. Beauty, time, comfort, and love.\n\nMerry Christmas.\n\n- Narendra",
+    content: "Dear Sai,\n\nI wanted to give you things that remind me of you. Beauty, time, comfort, and happiness.\n\nMerry Christmas.\n\n- Narendra",
     color: "bg-slate-100"
   },
   { 
@@ -58,6 +58,13 @@ const gifts: GiftType[] = [
     name: "Open My Heart", 
     type: 'locket', 
     color: "bg-red-100"
+  },
+  {
+    id: 6,
+    name: "Sweet Treats",
+    type: 'image',
+    src: "https://images.unsplash.com/photo-1558326432-05c40854553f?auto=format&fit=crop&w=600&q=80",
+    color: "bg-pink-100"
   },
 ];
 
@@ -105,17 +112,24 @@ export default function GiftUnboxing({ onComplete }: Props) {
   return (
     <motion.div 
       ref={containerRef}
-      className={`absolute inset-0 bg-[#0f172a] overflow-y-auto overflow-x-hidden ${font.className}`}
+      className={`absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0f172a] to-black overflow-y-auto overflow-x-hidden ${font.className}`}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
     >
       <div className="min-h-full p-6 md:p-12 flex flex-col items-center pb-32">
         
         <motion.div 
           initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.5 }}
-          className="text-center mb-8 md:mb-12 space-y-2"
+          className="text-center mb-8 md:mb-12 space-y-2 relative z-10"
         >
           <h1 className={`text-4xl md:text-6xl text-amber-100 ${scriptFont.className}`}>Gifts for You</h1>
           <p className="text-indigo-200/80 text-sm md:text-lg tracking-widest uppercase">Tap to unwrap</p>
+          <div className="w-32 h-1 bg-white/10 rounded-full mx-auto mt-4 overflow-hidden">
+            <motion.div 
+              className="h-full bg-amber-500"
+              initial={{ width: 0 }}
+              animate={{ width: `${(openedGifts.length / gifts.length) * 100}%` }}
+            />
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 w-full max-w-5xl">
@@ -183,6 +197,8 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen }: any
             exit={{ scale: 1.1, opacity: 0, rotate: 10 }}
             whileHover={{ scale: 1.05, rotate: 2 }}
             whileTap={{ scale: 0.95 }}
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
             className={`w-full h-full rounded-2xl shadow-xl flex flex-col items-center justify-center relative overflow-hidden group ${gift.color}`}
           >
             {/* Ribbon */}
@@ -191,7 +207,9 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen }: any
               <div className="absolute w-full h-4 md:h-8 bg-black/10" />
             </div>
             <Gift size={48} className="text-slate-800/50 mb-2 relative z-10" />
-            <span className="text-slate-800/70 font-semibold uppercase tracking-widest text-xs md:text-sm relative z-10">Tap to Open</span>
+            <span className="text-slate-800/70 font-semibold uppercase tracking-widest text-xs md:text-sm relative z-10 flex items-center gap-2">
+              Tap to Open <Sparkles size={12} />
+            </span>
           </motion.button>
         ) : (
           <motion.div
@@ -212,8 +230,8 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen }: any
             )}
 
             {gift.type === 'letter' && (
-              <div className="w-full h-full bg-[#fdfbf7] text-slate-800 p-4 rounded-lg shadow-inner overflow-y-auto text-center flex flex-col justify-center">
-                <p className="whitespace-pre-wrap text-xs md:text-sm leading-relaxed font-serif italic">
+              <div className="w-full h-full bg-[#fdfbf7] text-slate-800 p-2 md:p-4 rounded-lg shadow-inner overflow-y-auto text-center flex flex-col justify-center">
+                <p className="whitespace-pre-wrap text-[10px] md:text-xs leading-relaxed font-serif italic">
                   {gift.content}
                 </p>
               </div>

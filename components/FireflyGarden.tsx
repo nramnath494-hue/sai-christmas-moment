@@ -38,6 +38,7 @@ export default function FireflyGarden({ onComplete }: Props) {
       size: number;
       alpha: number;
       t: number;
+      color: string;
 
       constructor() {
         this.x = Math.random() * width;
@@ -47,6 +48,13 @@ export default function FireflyGarden({ onComplete }: Props) {
         this.size = Math.random() * 2 + 1;
         this.alpha = Math.random();
         this.t = Math.random() * 100;
+        const colors = [
+          '253, 224, 71', // Gold
+          '239, 68, 68',  // Red
+          '34, 197, 94',  // Green
+          '255, 255, 255' // White
+        ];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
       }
 
       update() {
@@ -75,12 +83,12 @@ export default function FireflyGarden({ onComplete }: Props) {
       }
 
       draw(ctx: CanvasRenderingContext2D) {
-        ctx.fillStyle = `rgba(253, 224, 71, ${this.alpha})`;
+        ctx.fillStyle = `rgba(${this.color}, ${this.alpha})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
         // Glow
-        ctx.fillStyle = `rgba(253, 224, 71, ${this.alpha * 0.3})`;
+        ctx.fillStyle = `rgba(${this.color}, ${this.alpha * 0.3})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size * 4, 0, Math.PI * 2);
         ctx.fill();
@@ -126,7 +134,7 @@ export default function FireflyGarden({ onComplete }: Props) {
       className={`absolute inset-0 bg-[#020617] overflow-hidden ${font.className}`}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
     >
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=2546&auto=format&fit=crop')] bg-cover bg-center opacity-30" />
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=2546&auto=format&fit=crop')] bg-cover bg-center opacity-30" />
       <canvas ref={canvasRef} className="absolute inset-0 z-10" />
       
       <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
@@ -134,13 +142,13 @@ export default function FireflyGarden({ onComplete }: Props) {
           initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 2, delay: 1 }}
           className={`text-4xl md:text-6xl text-amber-100 text-center px-4 drop-shadow-[0_0_15px_rgba(251,191,36,0.5)] ${scriptFont.className}`}
         >
-          You light up my world...
+          Wishing you a magical Christmas...
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }}
           className="text-amber-200/60 mt-4 text-lg tracking-widest uppercase"
         >
-          Guide the light
+          May your holidays sparkle
         </motion.p>
       </div>
 
