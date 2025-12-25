@@ -239,7 +239,8 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLet
             )}
 
             {gift.type === 'letter' && (
-              <div className="w-full h-full bg-[#fdfbf7] text-slate-800 p-2 md:p-4 rounded-lg shadow-inner relative">
+              <div className="w-full h-full relative">
+                <div className="w-full h-full bg-[#fdfbf7] text-slate-800 p-2 md:p-4 rounded-lg shadow-inner relative overflow-hidden">
                 <div 
                   className="overflow-y-auto h-full text-center flex flex-col items-center py-4 px-2 scrollbar-hide"
                   onScroll={(e) => {
@@ -250,11 +251,12 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLet
                     }
                   }}
                 >
-                  <p className="whitespace-pre-wrap text-[10px] md:text-xs leading-relaxed font-serif italic pb-8">
+                  <p className="whitespace-pre-wrap text-[10px] md:text-xs leading-relaxed font-serif italic pb-20">
                     {gift.content}
                   </p>
                 </div>
-                <div className="absolute bottom-4 left-0 right-0 flex justify-center pointer-events-none">
+                </div>
+                <div className="absolute -bottom-2 left-0 right-0 flex justify-center pointer-events-none z-20">
                   <motion.div 
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                     className="bg-black/80 text-white px-3 py-1 rounded-full text-[10px] uppercase tracking-widest flex items-center gap-1 shadow-lg backdrop-blur-sm"

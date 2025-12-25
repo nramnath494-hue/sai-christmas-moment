@@ -111,7 +111,7 @@ export default function FloatingLanterns({ onComplete }: Props) {
   const handleRelease = () => {
     if (!wish.trim()) return;
     setReleased(true);
-    setTimeout(onComplete, 4000); // Wait for animation before moving on
+    setTimeout(onComplete, 12000); // Wait longer (12s) for slow float and reading
   };
 
   return (
@@ -161,7 +161,7 @@ export default function FloatingLanterns({ onComplete }: Props) {
               key="flying"
               initial={{ y: 100, opacity: 0 }}
               animate={{ y: -window.innerHeight / 2, opacity: 1 }}
-              transition={{ duration: 3, ease: "easeOut" }}
+              transition={{ duration: 15, ease: "easeInOut" }}
               className="flex flex-col items-center"
             >
               {/* The User's Lantern Flying Up */}

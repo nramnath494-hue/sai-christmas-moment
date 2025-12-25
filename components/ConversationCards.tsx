@@ -54,11 +54,11 @@ export default function ConversationCards({ onComplete }: Props) {
           className="text-center mb-8"
           initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
         >
-          <h2 className={`text-4xl text-indigo-200 ${scriptFont.className}`}>Whispers & Wishes</h2>
+          <h2 className={`text-3xl md:text-4xl text-indigo-200 ${scriptFont.className}`}>Whispers & Wishes</h2>
           <p className="text-indigo-300/50 text-sm tracking-widest uppercase mt-2">Card {index + 1} of {questions.length}</p>
         </motion.div>
 
-        <div className="relative h-96 w-full perspective-[1000px]">
+        <div className="relative min-h-[24rem] w-full perspective-[1000px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
@@ -66,11 +66,11 @@ export default function ConversationCards({ onComplete }: Props) {
               animate={{ opacity: 1, x: 0, rotateY: 0 }}
               exit={{ opacity: 0, x: -50, rotateY: 10 }}
               transition={{ duration: 0.5 }}
-              className="absolute inset-0 bg-slate-900/90 border border-white/10 rounded-2xl p-8 flex flex-col justify-between shadow-2xl"
+              className="absolute inset-0 bg-slate-900/90 border border-white/10 rounded-2xl p-4 md:p-8 flex flex-col justify-between shadow-2xl"
             >
               <div>
                 <Sparkles className="text-amber-300/50 mb-4" size={24} />
-                <h3 className="text-2xl md:text-3xl text-indigo-100 leading-relaxed">
+                <h3 className="text-xl md:text-3xl text-indigo-100 leading-relaxed">
                   {questions[index]}
                 </h3>
               </div>
