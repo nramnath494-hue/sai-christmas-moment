@@ -109,7 +109,7 @@ export default function ConversationCards({ onComplete }: Props) {
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                         className="flex items-center gap-2"
                       >
-                        <Sparkles size={16} className="animate-spin" /> Sending...
+                        <Sparkles size={16} className="animate-spin" /> Releasing to the stars...
                       </motion.div>
                     ) : (
                       <>Next <ArrowRight size={16} /></>

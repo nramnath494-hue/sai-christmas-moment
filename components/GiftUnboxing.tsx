@@ -63,7 +63,7 @@ const gifts: GiftType[] = [
     id: 6,
     name: "Sweet Treats",
     type: 'image',
-    src: "https://images.unsplash.com/photo-1558326432-05c40854553f?auto=format&fit=crop&w=600&q=80",
+    src: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=600&auto=format&fit=crop",
     color: "bg-pink-100"
   },
 ];

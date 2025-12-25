@@ -9,11 +9,11 @@ import SnowGlobe from '@/components/SnowGlobe';
 import Candle from '@/components/Candle';
 import MomentFreeze from '@/components/MomentFreeze';
 import ConstellationField from '@/components/ConstellationField';
-import FloatingMessage from '@/components/FloatingMessage';
+import FloatingLanterns from '@/components/FloatingLanterns';
 import ReflectionOverlay from '@/components/ReflectionOverlay';
 import RecordPlayer, { PLAYLIST } from '@/components/RecordPlayer';
 import GiftUnboxing from '@/components/GiftUnboxing';
-import FinalStop from '@/components/FinalStop';
+import ThankYou from '@/components/ThankYou';
 import CursorSparkles from '@/components/CursorSparkles';
 import Fireworks from '@/components/Fireworks';
 import FoggyWindow from '@/components/FoggyWindow';
@@ -94,7 +94,7 @@ export default function Home() {
         {act === 4 && <Candle key="act4" onComplete={() => setAct(5)} />}
         {act === 5 && <MomentFreeze key="act5" onComplete={() => setAct(6)} />}
         {act === 6 && <ConstellationField key="act6" onComplete={() => setAct(7)} />}
-        {act === 7 && <FloatingMessage key="act7" onComplete={() => setAct(8)} />}
+        {act === 7 && <FloatingLanterns key="act7" onComplete={() => setAct(8)} />}
         {act === 8 && <FoggyWindow key="act8" onComplete={() => setAct(9)} />}
         {act === 9 && <ConversationCards key="act9" onComplete={() => setAct(10)} />}
         {act === 10 && <FutureVisions key="act10" onComplete={() => setAct(11)} />}
@@ -105,7 +105,7 @@ export default function Home() {
         {act === 14 && (
           <>
             <Fireworks />
-            <FinalStop key="act14" onStop={stopMusic} />
+            <ThankYou key="act14" />
           </>
         )}
       </AnimatePresence>
