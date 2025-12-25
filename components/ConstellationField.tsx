@@ -26,11 +26,11 @@ export default function ConstellationField({ onComplete }: Props) {
   }, []);
 
   const starData = [
-    { id: 1, x: isMobile ? 20 : 20, y: isMobile ? 35 : 30, label: "Warmth" },
-    { id: 2, x: isMobile ? 80 : 80, y: isMobile ? 30 : 25, label: "Curiosity" },
-    { id: 3, x: 50, y: isMobile ? 20 : 15, label: "Stillness" },
-    { id: 4, x: isMobile ? 25 : 30, y: isMobile ? 65 : 70, label: "Light" },
-    { id: 5, x: isMobile ? 75 : 70, y: isMobile ? 60 : 65, label: "Possibility" },
+    { id: 1, x: isMobile ? 15 : 20, y: isMobile ? 35 : 30, label: "Warmth" },
+    { id: 2, x: isMobile ? 75 : 80, y: isMobile ? 30 : 25, label: "Curiosity" },
+    { id: 3, x: isMobile ? 45 : 50, y: isMobile ? 20 : 15, label: "Stillness" },
+    { id: 4, x: isMobile ? 20 : 30, y: isMobile ? 65 : 70, label: "Light" },
+    { id: 5, x: isMobile ? 70 : 70, y: isMobile ? 60 : 65, label: "Possibility" },
   ];
 
   const handleStarClick = (id: number) => {
@@ -110,7 +110,7 @@ export default function ConstellationField({ onComplete }: Props) {
             active={starsClicked.includes(star.id)}
             onClick={() => handleStarClick(star.id)}
             isAligned={isAligned}
-            alignmentX={50 + (star.id - 3) * (isMobile ? 18 : 15)}
+            alignmentX={(isMobile ? 45 : 50) + (star.id - 3) * (isMobile ? 18 : 15)}
             alignmentY={(isMobile ? 40 : 30) + Math.abs(star.id - 3) * 3}
           />
         ))}

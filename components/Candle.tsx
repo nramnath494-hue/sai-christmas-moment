@@ -186,8 +186,15 @@ export default function Candle({ onComplete }: Props) {
          </AnimatePresence>
       </div>
 
+      <AnimatePresence>
       {(!isMobile || !showTreats) && (
-      <div className="absolute bottom-12 md:bottom-20 flex flex-col items-center justify-end h-[500px] w-40 z-20 scale-75 md:scale-100 origin-bottom">
+      <motion.div 
+        key="candle-container"
+        initial={{ opacity: 1 }}
+        exit={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+        transition={{ duration: 1.5 }}
+        className="absolute bottom-12 md:bottom-20 flex flex-col items-center justify-end h-[500px] w-40 z-20 scale-75 md:scale-100 origin-bottom"
+      >
         {/* Smoke (Only when extinguished) */}
         {isExtinguished && (
            <>
@@ -307,8 +314,9 @@ export default function Candle({ onComplete }: Props) {
             {/* Base */}
             <div className="w-32 h-8 bg-gradient-to-r from-yellow-900 via-yellow-600 to-yellow-900 rounded-[50%] shadow-[0_10px_20px_rgba(0,0,0,0.8),inset_0_2px_5px_rgba(255,255,255,0.2)] border-t border-yellow-400/20" />
         </div>
-      </div>
+      </motion.div>
       )}
+      </AnimatePresence>
     </motion.div>
   );
 }

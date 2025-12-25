@@ -8,7 +8,8 @@ interface Props {
 }
 
 export default function FloatingMessage({ onComplete }: Props) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+  const [visibleLanterns, setVisibleLanterns] = useState([false, false, false]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -18,9 +19,19 @@ export default function FloatingMessage({ onComplete }: Props) {
   }, []);
 
   useEffect(() => {
-    // Increase duration on mobile to allow sequential animation
-    const timer = setTimeout(onComplete, isMobile ? 25000 : 18000);
-    return () => clearTimeout(timer);
+    if (isMobile === null) return;
+
+    if (isMobile) {
+      const t1 = setTimeout(() => setVisibleLanterns([true, false, false]), 100);
+      const t2 = setTimeout(() => setVisibleLanterns([true, true, false]), 8000);
+      const t3 = setTimeout(() => setVisibleLanterns([true, true, true]), 16000);
+      const tEnd = setTimeout(onComplete, 25000);
+      return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(tEnd); };
+    } else {
+      setVisibleLanterns([true, true, true]);
+      const tEnd = setTimeout(onComplete, 22000);
+      return () => clearTimeout(tEnd);
+    }
   }, [onComplete, isMobile]);
 
   return (
@@ -52,18 +63,24 @@ export default function FloatingMessage({ onComplete }: Props) {
 
       {/* Floating Lanterns */}
       <div className={`absolute inset-0 pointer-events-none ${isMobile ? '[&>*]:scale-50' : '[&>*]:scale-100'} [&>*]:origin-center`}>
-        <FloatingLantern 
-          message="I liked imagining you here…"
-          delay={0} duration={isMobile ? 7 : 15} yStart={isMobile ? 70 : 30}
-        />
-        <FloatingLantern 
-          message="On a quiet Christmas night."
-          delay={isMobile ? 8 : 4} duration={isMobile ? 7 : 16} yStart={isMobile ? 70 : 50}
-        />
-        <FloatingLantern 
-          message="That felt nice."
-          delay={isMobile ? 16 : 8} duration={isMobile ? 7 : 14} yStart={isMobile ? 70 : 40}
-        />
+        {visibleLanterns[0] && (
+          <FloatingLantern 
+            message="I liked imagining you here…"
+            delay={isMobile ? 0 : 0} duration={isMobile ? 7 : 15} yStart={isMobile ? 70 : 30}
+          />
+        )}
+        {visibleLanterns[1] && (
+          <FloatingLantern 
+            message="On a quiet Christmas night."
+            delay={isMobile ? 0 : 4} duration={isMobile ? 7 : 16} yStart={isMobile ? 70 : 50}
+          />
+        )}
+        {visibleLanterns[2] && (
+          <FloatingLantern 
+            message="That felt nice."
+            delay={isMobile ? 0 : 8} duration={isMobile ? 7 : 14} yStart={isMobile ? 70 : 40}
+          />
+        )}
       </div>
     </motion.div>
   );

@@ -12,6 +12,7 @@ import ConstellationField from '@/components/ConstellationField';
 import FloatingMessage from '@/components/FloatingMessage';
 import ReflectionOverlay from '@/components/ReflectionOverlay';
 import RecordPlayer from '@/components/RecordPlayer';
+import GiftUnboxing from '@/components/GiftUnboxing';
 import FinalStop from '@/components/FinalStop';
 
 export const force_dynamic = 'force-dynamic'; // Ensures animations work correctly on Vercel
@@ -73,8 +74,9 @@ export default function Home() {
         {act === 6 && <ConstellationField key="act6" onComplete={() => setAct(7)} />}
         {act === 7 && <FloatingMessage key="act7" onComplete={() => setAct(8)} />}
         {act === 8 && <ReflectionOverlay key="act8" />}
-        {/* Add a button in ReflectionOverlay to trigger Act 9 or just render FinalStop as Act 9 */}
-        {act === 9 && <FinalStop key="act9" onStop={stopMusic} />}
+        {act === 9 && <GiftUnboxing key="act9" onComplete={() => setAct(10)} />}
+        {/* Final Stop */}
+        {act === 10 && <FinalStop key="act10" onStop={stopMusic} />}
       </AnimatePresence>
       
       {/* Optional: Floating Stop Button for Act 8 */}
@@ -87,7 +89,7 @@ export default function Home() {
             onClick={() => setAct(9)}
             className="text-white/30 hover:text-white/80 text-xs uppercase tracking-widest transition-colors"
           >
-            End Moment
+            One Last Surprise
           </button>
         </motion.div>
       )}
