@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Cormorant_Garamond, Great_Vibes } from 'next/font/google';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
@@ -20,6 +20,26 @@ const cards = [
 export default function ConversationCards({ onComplete }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [showParticles, setShowParticles] = useState(false);
+
+  // 3D Tilt Logic
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x, { stiffness: 50, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 50, damping: 20 });
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   const handleNext = () => {
     if (currentIndex < cards.length - 1) {
@@ -28,6 +48,11 @@ export default function ConversationCards({ onComplete }: Props) {
     } else {
       onComplete();
     }
+  };
+
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped);
+    if (!isFlipped) setShowParticles(true);
   };
 
   const currentCard = cards[currentIndex];
@@ -55,7 +80,36 @@ export default function ConversationCards({ onComplete }: Props) {
       </div>
 
       {/* Card Container */}
-      <div className="relative w-72 h-96 perspective-[1000px] cursor-pointer group" onClick={() => setIsFlipped(!isFlipped)}>
+      <motion.div 
+        className="relative w-72 h-96 perspective-[1000px] cursor-pointer group" 
+        onClick={handleFlip}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      >
+        {/* Particle Burst on Flip */}
+        <AnimatePresence>
+          {showParticles && (
+            <div className="absolute inset-0 pointer-events-none">
+              {[...Array(12)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute left-1/2 top-1/2 w-2 h-2 bg-amber-200 rounded-full"
+                  initial={{ scale: 0, x: 0, y: 0, opacity: 1 }}
+                  animate={{ 
+                    x: (Math.random() - 0.5) * 300, 
+                    y: (Math.random() - 0.5) * 300, 
+                    opacity: 0, 
+                    scale: 0 
+                  }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  onAnimationComplete={() => setShowParticles(false)}
+                />
+              ))}
+            </div>
+          )}
+        </AnimatePresence>
+
         <motion.div
           className="w-full h-full relative preserve-3d transition-all duration-700"
           animate={{ rotateY: isFlipped ? 180 : 0 }}
@@ -74,15 +128,15 @@ export default function ConversationCards({ onComplete }: Props) {
             style={{ transform: "rotateY(180deg)", backfaceVisibility: 'hidden' }}
           >
              <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')]" />
-             <p className="text-2xl md:text-3xl text-slate-800 font-medium leading-relaxed">
+             <p className="text-2xl md:text-3xl text-slate-800 font-medium leading-relaxed drop-shadow-sm">
                {currentCard.text}
              </p>
              <div className="absolute bottom-6 w-full flex justify-center">
-               <span className="text-slate-400 text-xs uppercase tracking-widest">{currentIndex + 1} / {cards.length}</span>
+               <span className="text-slate-400/60 text-[10px] uppercase tracking-[0.2em] border-t border-slate-200 pt-2 px-4">Card {currentIndex + 1} of {cards.length}</span>
              </div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Controls */}
       <AnimatePresence>
