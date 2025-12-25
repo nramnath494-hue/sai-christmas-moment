@@ -67,8 +67,8 @@ export default function FloatingLanterns({ onComplete }: Props) {
         }
 
         // Draw Lantern
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = '#fbbf24';
+        ctx.shadowBlur = l.isSpecial ? 30 : 15;
+        ctx.shadowColor = l.isSpecial ? '#ffaa00' : '#fbbf24';
         ctx.fillStyle = 'rgba(251, 191, 36, 0.8)';
         ctx.beginPath();
         ctx.ellipse(l.x, l.y, l.size * 0.6, l.size, 0, 0, Math.PI * 2);
@@ -77,9 +77,9 @@ export default function FloatingLanterns({ onComplete }: Props) {
 
         // Draw Text if present
         if (l.text) {
-          const fontSize = l.isSpecial ? l.size * 1.2 : l.size * 0.8;
+          const fontSize = l.isSpecial ? 16 : l.size * 0.6;
           ctx.fillStyle = l.isSpecial ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.6)';
-          ctx.font = `${l.isSpecial ? 'bold ' : ''}${fontSize}px serif`;
+          ctx.font = `${l.isSpecial ? 'italic ' : ''}${fontSize}px serif`;
           ctx.textAlign = 'center';
           ctx.fillText(l.text, l.x, l.y + l.size * 2.5);
         }
@@ -98,27 +98,30 @@ export default function FloatingLanterns({ onComplete }: Props) {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
-      for (let i = 0; i < 40; i++) {
-        let text = undefined;
-        let isSpecial = false;
-        let startYOffset = 500; // Default random spread below screen
+      // 1. Special Messages (In Order)
+      SPECIAL_MESSAGES.forEach((msg, index) => {
+        lanternsRef.current.push({
+          x: canvas.width / 2 + (Math.random() - 0.5) * 200, // Centered-ish
+          y: canvas.height + 100 + (index * 350), // Spaced out vertically in order
+          speed: 0.5, // Consistent speed
+          size: 22, // Slightly larger
+          wobble: Math.random() * Math.PI * 2,
+          text: msg,
+          isSpecial: true
+        });
+      });
 
-        if (i < SPECIAL_MESSAGES.length) {
-          text = SPECIAL_MESSAGES[i];
-          isSpecial = true;
-          startYOffset = 200; // Spawn special ones closer so they appear sooner
-        } else if (Math.random() > 0.7) {
-          text = FLOATING_MESSAGES[Math.floor(Math.random() * FLOATING_MESSAGES.length)];
-        }
-
+      // 2. Random Messages (After special ones)
+      for (let i = 0; i < 35; i++) {
+        const text = Math.random() > 0.6 ? FLOATING_MESSAGES[Math.floor(Math.random() * FLOATING_MESSAGES.length)] : undefined;
         lanternsRef.current.push({
           x: Math.random() * canvas.width,
-          y: canvas.height + Math.random() * startYOffset, 
-          speed: isSpecial ? 0.4 : Math.random() * 0.3 + 0.3, // Consistent slow speed for reading
-          size: isSpecial ? Math.random() * 5 + 18 : Math.random() * 15 + 10, // Bigger lanterns for special msgs
+          y: canvas.height + 100 + (SPECIAL_MESSAGES.length * 350) + (Math.random() * 1200), // Start after special messages
+          speed: Math.random() * 0.3 + 0.3,
+          size: Math.random() * 10 + 15,
           wobble: Math.random() * Math.PI * 2,
           text: text,
-          isSpecial: isSpecial
+          isSpecial: false
         });
       }
     }
