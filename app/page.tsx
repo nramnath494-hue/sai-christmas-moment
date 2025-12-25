@@ -105,7 +105,7 @@ export default function Home() {
         {act === 14 && (
           <>
             <Fireworks />
-            <ThankYou key="act14" />
+            <ThankYou key="act14" onStop={stopMusic} />
           </>
         )}
       </AnimatePresence>

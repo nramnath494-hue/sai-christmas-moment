@@ -66,7 +66,7 @@ export default function ConversationCards({ onComplete }: Props) {
               animate={{ opacity: 1, x: 0, rotateY: 0 }}
               exit={{ opacity: 0, x: -50, rotateY: 10 }}
               transition={{ duration: 0.5 }}
-              className="absolute inset-0 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 flex flex-col justify-between shadow-2xl"
+              className="absolute inset-0 bg-slate-900/90 border border-white/10 rounded-2xl p-8 flex flex-col justify-between shadow-2xl"
             >
               <div>
                 <Sparkles className="text-amber-300/50 mb-4" size={24} />
@@ -81,7 +81,7 @@ export default function ConversationCards({ onComplete }: Props) {
                     value={answer}
                     onChange={(e) => setAnswer(e.target.value)}
                     placeholder="Type your answer here..."
-                    className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-indigo-100 placeholder:text-indigo-400/30 focus:outline-none focus:border-indigo-400/50 transition-colors resize-none h-32"
+                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl p-4 text-indigo-100 placeholder:text-indigo-400/30 focus:outline-none focus:border-indigo-400/50 transition-colors resize-none h-32"
                     disabled={isSubmitting}
                   />
                   <div className="absolute bottom-3 right-3">
@@ -98,7 +98,7 @@ export default function ConversationCards({ onComplete }: Props) {
                     onClick={handleNext}
                     disabled={!answer.trim() || isSubmitting}
                     className={`
-                      flex items-center gap-2 px-6 py-2 rounded-full transition-all
+                      flex items-center justify-center gap-2 px-6 py-2 rounded-full transition-all min-w-[140px]
                       ${!answer.trim() 
                         ? 'bg-white/5 text-white/20 cursor-not-allowed' 
                         : 'bg-indigo-500 hover:bg-indigo-400 text-white shadow-[0_0_15px_rgba(99,102,241,0.5)]'}
@@ -109,7 +109,7 @@ export default function ConversationCards({ onComplete }: Props) {
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                         className="flex items-center gap-2"
                       >
-                        <Sparkles size={16} className="animate-spin" /> Releasing to the stars...
+                        <Sparkles size={16} className="animate-spin" /> Releasing...
                       </motion.div>
                     ) : (
                       <>Next <ArrowRight size={16} /></>

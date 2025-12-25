@@ -26,6 +26,13 @@ export default function FireflyGarden({ onComplete }: Props) {
     canvas.width = width;
     canvas.height = height;
 
+    const handleResize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    };
+
     const fireflies: Firefly[] = [];
     let mouseX = width / 2;
     let mouseY = height / 2;
@@ -95,7 +102,8 @@ export default function FireflyGarden({ onComplete }: Props) {
       }
     }
 
-    for (let i = 0; i < 150; i++) {
+    const particleCount = width < 768 ? 80 : 150;
+    for (let i = 0; i < particleCount; i++) {
       fireflies.push(new Firefly());
     }
 
@@ -121,11 +129,13 @@ export default function FireflyGarden({ onComplete }: Props) {
 
     window.addEventListener('mousemove', handleMove);
     window.addEventListener('touchmove', handleMove);
+    window.addEventListener('resize', handleResize);
     setTimeout(() => setShowButton(true), 6000);
 
     return () => {
       window.removeEventListener('mousemove', handleMove);
       window.removeEventListener('touchmove', handleMove);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -146,7 +156,7 @@ export default function FireflyGarden({ onComplete }: Props) {
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }}
-          className="text-amber-200/60 mt-4 text-lg tracking-widest uppercase"
+          className="text-amber-200/60 mt-4 text-sm md:text-lg tracking-widest uppercase"
         >
           Touch the screen to guide the light...
         </motion.p>

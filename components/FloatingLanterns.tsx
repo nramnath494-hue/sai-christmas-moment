@@ -7,6 +7,16 @@ import { Send, Sparkles } from 'lucide-react';
 const font = Cormorant_Garamond({ subsets: ['latin'], weight: ['400', '600'] });
 const scriptFont = Great_Vibes({ subsets: ['latin'], weight: ['400'] });
 
+const FLOATING_MESSAGES = [
+  "Hope", "Love", "Joy", "Peace", "Dreams", "Magic", "You & Me", "Forever", "Sparkle", "Wishes"
+];
+
+const SPECIAL_MESSAGES = [
+  "I liked imagining you here…",
+  "On a quiet Christmas night.",
+  "That felt nice."
+];
+
 interface Props {
   onComplete: () => void;
 }
@@ -26,15 +36,24 @@ export default function FloatingLanterns({ onComplete }: Props) {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const lanterns: { x: number; y: number; speed: number; size: number; wobble: number }[] = [];
+    const lanterns: { x: number; y: number; speed: number; size: number; wobble: number; text?: string }[] = [];
 
     for (let i = 0; i < 50; i++) {
+      let text = undefined;
+      // Ensure special messages appear
+      if (i < SPECIAL_MESSAGES.length) {
+        text = SPECIAL_MESSAGES[i];
+      } else if (Math.random() > 0.8) {
+        text = FLOATING_MESSAGES[Math.floor(Math.random() * FLOATING_MESSAGES.length)];
+      }
+
       lanterns.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height + canvas.height, // Start below or scattered
         speed: Math.random() * 1 + 0.5,
-        size: Math.random() * 20 + 10,
-        wobble: Math.random() * Math.PI * 2
+        size: Math.random() * 15 + 10,
+        wobble: Math.random() * Math.PI * 2,
+        text: text
       });
     }
 
@@ -67,6 +86,14 @@ export default function FloatingLanterns({ onComplete }: Props) {
         ctx.ellipse(l.x, l.y, l.size * 0.6, l.size, 0, 0, Math.PI * 2);
         ctx.fill();
         ctx.shadowBlur = 0;
+
+        // Draw Text if present
+        if (l.text) {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+          ctx.font = `${l.size * 0.8}px serif`;
+          ctx.textAlign = 'center';
+          ctx.fillText(l.text, l.x, l.y + l.size * 2.5);
+        }
       });
 
       requestAnimationFrame(animate);

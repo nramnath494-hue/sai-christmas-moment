@@ -1,12 +1,16 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Cormorant_Garamond, Great_Vibes } from 'next/font/google';
-import { Sparkles, Heart } from 'lucide-react';
+import { Sparkles, Heart, VolumeX } from 'lucide-react';
 
 const font = Cormorant_Garamond({ subsets: ['latin'], weight: ['400', '600'] });
 const scriptFont = Great_Vibes({ subsets: ['latin'], weight: ['400'] });
 
-export default function ThankYou() {
+interface Props {
+  onStop?: () => void;
+}
+
+export default function ThankYou({ onStop }: Props) {
   return (
     <motion.div 
       className={`absolute inset-0 bg-slate-950 flex flex-col items-center justify-center p-6 text-center ${font.className}`}
@@ -58,9 +62,18 @@ export default function ThankYou() {
           transition={{ delay: 3 }}
           className="pt-8"
         >
-          <p className="text-amber-500/60 text-sm tracking-[0.2em] uppercase flex items-center justify-center gap-2">
+          <p className="text-amber-500/60 text-sm tracking-[0.2em] uppercase flex items-center justify-center gap-2 mb-4">
             With Love <Heart size={12} className="fill-amber-500/60" />
           </p>
+
+          {onStop && (
+            <button 
+              onClick={onStop}
+              className="text-indigo-300/50 hover:text-indigo-200 text-xs uppercase tracking-widest flex items-center gap-2 mx-auto transition-colors border border-indigo-500/20 px-4 py-2 rounded-full hover:bg-indigo-500/10"
+            >
+              <VolumeX size={12} /> Stop Music
+            </button>
+          )}
         </motion.div>
       </div>
     </motion.div>
