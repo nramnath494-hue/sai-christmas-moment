@@ -41,7 +41,7 @@ export default function LetterCard({ onStart }: Props) {
 
   return (
     <motion.div 
-      className="absolute inset-0 flex items-center justify-center p-2 md:p-6 overflow-hidden touch-none"
+      className="absolute inset-0 flex items-center justify-center p-2 md:p-6 overflow-hidden"
       style={{ perspective: 1000 }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, scale: 0.95 }}
       onMouseMove={handleMouseMove}
@@ -55,7 +55,7 @@ export default function LetterCard({ onStart }: Props) {
         animate={{ rotateX: 0, y: 0, opacity: 1 }}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className={`max-w-md w-full bg-[#F5F5F7] text-slate-900 p-3 md:p-14 rounded-xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.6)] relative overflow-hidden border border-white/60 ${font.className}`}
+        className={`max-w-md w-full bg-[#F5F5F7] text-slate-900 p-4 md:p-14 rounded-xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.6)] relative overflow-hidden border border-white/60 ${font.className}`}
       >
         {/* Paper Texture & Warmth */}
         <div className="absolute inset-0 opacity-40 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] pointer-events-none mix-blend-multiply" />
@@ -74,24 +74,24 @@ export default function LetterCard({ onStart }: Props) {
           <Holly className="w-full h-full" />
         </motion.div>
         
-        <div className="relative z-10 space-y-1 md:space-y-8 text-sm md:text-xl leading-relaxed font-medium flex flex-col justify-center h-full">
+        <div className="relative z-10 space-y-2 md:space-y-8 text-sm md:text-xl leading-relaxed font-medium flex flex-col justify-center h-full">
           <motion.div 
             initial={{ opacity: 0, y: 15 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ delay: 0.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }}
           >
-            <p className="text-indigo-900/60 text-[9px] md:text-sm uppercase tracking-[0.25em] mb-1 md:mb-4 font-sans font-bold opacity-80">A Note for You</p>
-            <p className="text-slate-800 font-normal text-base md:text-2xl leading-tight">I kept thinking about what I could give you for Christmas…</p>
+            <p className="text-indigo-900/60 text-[10px] md:text-sm uppercase tracking-[0.25em] mb-1 md:mb-4 font-sans font-bold opacity-80">A Note for You</p>
+            <p className="text-slate-800 font-normal text-lg md:text-2xl">I kept thinking about what I could give you for Christmas…</p>
           </motion.div>
 
           <motion.div 
             initial={{ opacity: 0, y: 15 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ delay: 3.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }} 
-            className="space-y-0 md:space-y-2 pt-1"
+            className="space-y-0 md:space-y-2"
           >
-            <p className="text-indigo-950 italic font-medium text-base md:text-2xl">Something meaningful.</p>
-            <p className="text-slate-800 font-normal text-sm md:text-xl leading-tight">Something that felt like care, not expectation.</p>
+            <p className="text-indigo-950 italic font-medium text-lg md:text-2xl">Something meaningful.</p>
+            <p className="text-slate-800 font-normal text-base md:text-xl">Something that felt like care, not expectation.</p>
           </motion.div>
 
           <motion.div 
@@ -100,7 +100,7 @@ export default function LetterCard({ onStart }: Props) {
             transition={{ delay: 7.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }}
           >
             <motion.div animate={{ y: [0, -3, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
-              <p className="text-slate-800 font-normal text-sm md:text-xl leading-tight">So I didn’t choose a gift. <br/> I chose a moment.</p>
+              <p className="text-slate-800 font-normal text-base md:text-xl">So I didn’t choose a gift. <br/> I chose a moment.</p>
             </motion.div>
           </motion.div>
 
@@ -109,9 +109,9 @@ export default function LetterCard({ onStart }: Props) {
             animate={{ opacity: 1, y: 0 }} 
             transition={{ delay: 10.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }}
           >
-            <p className="text-indigo-950 font-medium text-sm md:text-xl leading-tight">One that moves slowly — the way the best moments do.</p>
+            <p className="text-indigo-950 font-medium text-base md:text-xl">One that moves slowly — the way the best moments do.</p>
             <motion.p 
-              className={`mt-1 md:mt-8 text-right text-indigo-900 text-2xl md:text-5xl ${signatureFont.className}`}
+              className={`mt-2 md:mt-8 text-right text-indigo-900 text-3xl md:text-5xl ${signatureFont.className}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ 
                 opacity: 1,
@@ -129,11 +129,11 @@ export default function LetterCard({ onStart }: Props) {
           
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 13, duration: 2 }}
-            className="pt-1 md:pt-8 text-center"
+            className="pt-2 md:pt-8 text-center"
           >
             <button 
               onClick={onStart}
-              className="group relative px-4 py-2 md:px-10 md:py-4 bg-white/60 overflow-hidden rounded-full transition-all duration-500 hover:bg-white hover:shadow-[0_0_30px_rgba(199,210,254,0.6)] hover:scale-105 active:scale-95 border border-indigo-100/50"
+              className="group relative px-5 py-2 md:px-10 md:py-4 bg-white/60 overflow-hidden rounded-full transition-all duration-500 hover:bg-white hover:shadow-[0_0_30px_rgba(199,210,254,0.6)] hover:scale-105 active:scale-95 border border-indigo-100/50"
             >
               <motion.div 
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-100/60 to-transparent"

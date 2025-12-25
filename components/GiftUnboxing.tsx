@@ -43,7 +43,7 @@ const gifts: GiftType[] = [
     id: 3, 
     name: "A Cuddly Friend", 
     type: 'image', 
-    src: "https://plus.unsplash.com/premium_photo-1675805015392-28fd80c551ec?auto=format&fit=crop&w=600&q=80",
+    src: "https://images.unsplash.com/photo-1559454403-b8fb87521bc7?auto=format&fit=crop&w=600&q=80",
     color: "bg-amber-100"
   },
   { 
@@ -83,7 +83,13 @@ export default function GiftUnboxing({ onComplete }: Props) {
     if (!containerRef.current) return;
     setIsSaving(true);
     try {
-      const dataUrl = await toPng(containerRef.current, { cacheBust: true, pixelRatio: 2 });
+      const dataUrl = await toPng(containerRef.current, { 
+        cacheBust: true, 
+        pixelRatio: 2,
+        filter: (node) => {
+          return !node.classList?.contains('exclude-from-save');
+        }
+      });
       const link = document.createElement('a');
       link.download = 'Christmas-Gifts-From-Narendra.png';
       link.href = dataUrl;
@@ -131,7 +137,7 @@ export default function GiftUnboxing({ onComplete }: Props) {
           {showSavePrompt && (
             <motion.div 
               initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}
-              className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/90 to-transparent z-50 flex flex-col items-center gap-4"
+              className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/90 to-transparent z-50 flex flex-col items-center gap-4 exclude-from-save"
             >
               <p className="text-white text-lg md:text-xl text-center mb-2">
                 Do you want to save these memories?
@@ -216,8 +222,20 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen }: any
             {gift.type === 'locket' && (
               <div className="flex flex-col items-center justify-center h-full w-full">
                 <div className="relative w-32 h-32 md:w-56 md:h-56 cursor-pointer perspective-[1000px]" onClick={() => setLocketOpen(!locketOpen)}>
-                  {/* Chain */}
-                  <div className="absolute -top-16 md:-top-24 left-1/2 -translate-x-1/2 w-1 h-20 md:h-28 bg-gradient-to-b from-transparent to-yellow-500/50" />
+                  {/* Necklace Chain */}
+                  <svg className="absolute -top-24 left-1/2 -translate-x-1/2 w-64 h-32 pointer-events-none z-0 opacity-80" viewBox="0 0 200 100">
+                    {/* V-Shape Chain */}
+                    <path d="M0 0 Q 100 120 200 0" fill="none" stroke="url(#chainGradient)" strokeWidth="1.5" strokeDasharray="3 2" />
+                    <defs>
+                      <linearGradient id="chainGradient" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="transparent" />
+                        <stop offset="20%" stopColor="#FDB931" />
+                        <stop offset="50%" stopColor="#FFD700" />
+                        <stop offset="80%" stopColor="#FDB931" />
+                        <stop offset="100%" stopColor="transparent" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
                   
                   {/* Locket Container */}
                   <motion.div 
