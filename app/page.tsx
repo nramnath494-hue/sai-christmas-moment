@@ -1,65 +1,96 @@
-import Image from "next/image";
+'use client';
+import { useState, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+
+// Components
+import Snow from '@/components/Snow';
+import LetterCard from '@/components/LetterCard';
+import SnowGlobe from '@/components/SnowGlobe';
+import Candle from '@/components/Candle';
+import MomentFreeze from '@/components/MomentFreeze';
+import ConstellationField from '@/components/ConstellationField';
+import FloatingMessage from '@/components/FloatingMessage';
+import ReflectionOverlay from '@/components/ReflectionOverlay';
+import RecordPlayer from '@/components/RecordPlayer';
+import FinalStop from '@/components/FinalStop';
+
+export const force_dynamic = 'force-dynamic'; // Ensures animations work correctly on Vercel
+
+const AUDIO_URL = "/O Come, All Ye Faithful - Christmas piano instrumental with lyrics.mp3"; // Path relative to the public folder
 
 export default function Home() {
+  const [act, setAct] = useState(1);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const startMusic = () => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0;
+      audioRef.current.play().catch(e => console.log("Audio play failed", e));
+      
+      // Fade in audio
+      let vol = 0;
+      const fade = setInterval(() => {
+        if (vol < 0.5) {
+          vol += 0.05;
+          if(audioRef.current) audioRef.current.volume = vol;
+        } else {
+          clearInterval(fade);
+        }
+      }, 200);
+    }
+    setAct(3); // Move to SnowGlobe after music starts
+  };
+
+  const stopMusic = () => {
+    if (audioRef.current) {
+      const fadeOut = setInterval(() => {
+        if (audioRef.current && audioRef.current.volume > 0.05) {
+          audioRef.current.volume -= 0.05;
+        } else {
+          if (audioRef.current) audioRef.current.pause();
+          clearInterval(fadeOut);
+        }
+      }, 200);
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="relative w-full h-screen overflow-hidden bg-[#050814] selection:bg-indigo-500/30">
+      <audio ref={audioRef} src={AUDIO_URL} loop />
+      
+      {/* Global Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#050814] to-[#050814]" />
+      
+      {/* Snow is global but freezes in Act 5 (MomentFreeze) */}
+      {act > 2 && act !== 3 && <Snow frozen={act === 5} />}
+
+      <AnimatePresence mode="wait">
+        {act === 1 && <LetterCard key="act1" onStart={() => setAct(2)} />}
+        {act === 2 && <RecordPlayer key="act2" onPlay={startMusic} />}
+        {act === 3 && <SnowGlobe key="act3" onNext={() => setAct(4)} />}
+        {act === 4 && <Candle key="act4" onComplete={() => setAct(5)} />}
+        {act === 5 && <MomentFreeze key="act5" onComplete={() => setAct(6)} />}
+        {act === 6 && <ConstellationField key="act6" onComplete={() => setAct(7)} />}
+        {act === 7 && <FloatingMessage key="act7" onComplete={() => setAct(8)} />}
+        {act === 8 && <ReflectionOverlay key="act8" />}
+        {/* Add a button in ReflectionOverlay to trigger Act 9 or just render FinalStop as Act 9 */}
+        {act === 9 && <FinalStop key="act9" onStop={stopMusic} />}
+      </AnimatePresence>
+      
+      {/* Optional: Floating Stop Button for Act 8 */}
+      {act === 8 && (
+        <motion.div 
+          className="absolute bottom-10 right-10 z-50"
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 5 }}
+        >
+          <button 
+            onClick={() => setAct(9)}
+            className="text-white/30 hover:text-white/80 text-xs uppercase tracking-widest transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            End Moment
+          </button>
+        </motion.div>
+      )}
+    </main>
   );
 }
