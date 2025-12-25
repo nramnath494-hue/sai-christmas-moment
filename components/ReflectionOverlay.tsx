@@ -22,7 +22,7 @@ export default function ReflectionOverlay() {
 
   return (
     <motion.div 
-      className="absolute inset-0 flex items-center justify-center p-4 md:p-6 overflow-hidden"
+      className="absolute inset-0 flex items-center justify-center p-4 md:p-6 overflow-hidden bg-[#0f172a]"
       initial={{ opacity: 0 }} animate={{ opacity: 1 }}
       transition={{ duration: 2, ease: "easeInOut" }}
     >
@@ -38,7 +38,14 @@ export default function ReflectionOverlay() {
       <motion.div className="absolute inset-0 bg-black/60" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2 }} />
 
       {/* Snow Animation */}
-      <Snow />
+      <motion.div 
+        className="absolute inset-0" 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        transition={{ delay: 1, duration: 2 }}
+      >
+        <Snow />
+      </motion.div>
 
       {/* Memory Motes */}
       {particles.map((p) => (

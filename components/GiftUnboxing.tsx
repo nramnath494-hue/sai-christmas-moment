@@ -43,7 +43,7 @@ const gifts: GiftType[] = [
     id: 3, 
     name: "A Cuddly Friend", 
     type: 'image', 
-    src: "https://images.unsplash.com/photo-1598153346810-860daa0d6cad?auto=format&fit=crop&w=600&q=80",
+    src: "https://plus.unsplash.com/premium_photo-1675805015392-28fd80c551ec?auto=format&fit=crop&w=600&q=80",
     color: "bg-amber-100"
   },
   { 
@@ -215,9 +215,9 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen }: any
 
             {gift.type === 'locket' && (
               <div className="flex flex-col items-center justify-center h-full w-full">
-                <div className="relative w-48 h-48 md:w-64 md:h-64 cursor-pointer perspective-[1000px]" onClick={() => setLocketOpen(!locketOpen)}>
+                <div className="relative w-32 h-32 md:w-56 md:h-56 cursor-pointer perspective-[1000px]" onClick={() => setLocketOpen(!locketOpen)}>
                   {/* Chain */}
-                  <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-1 h-28 bg-gradient-to-b from-transparent to-yellow-500/50" />
+                  <div className="absolute -top-16 md:-top-24 left-1/2 -translate-x-1/2 w-1 h-20 md:h-28 bg-gradient-to-b from-transparent to-yellow-500/50" />
                   
                   {/* Locket Container */}
                   <motion.div 
@@ -255,11 +255,11 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen }: any
                         clipPath: "path('M50 90 C 20 70 0 50 0 30 C 0 10 20 0 50 20 C 80 0 100 10 100 30 C 100 50 80 70 50 90')"
                       }}
                     >
-                       <div className="w-full h-full bg-yellow-100 flex items-center justify-center overflow-hidden p-1">
+                       <div className="w-full h-full bg-yellow-100 flex items-center justify-center overflow-hidden p-2 md:p-4">
                           <img 
                             src={LOCKET_IMAGE_SRC} 
                             alt="Her" 
-                            className="w-full h-full object-cover opacity-90 scale-95"
+                            className="w-full h-full object-contain opacity-90 drop-shadow-md"
                           />
                        </div>
                     </div>
