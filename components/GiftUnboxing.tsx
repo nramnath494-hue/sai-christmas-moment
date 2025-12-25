@@ -241,8 +241,8 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLet
             )}
 
             {gift.type === 'letter' && (
-              <div className="w-full h-full relative">
-                <div className="w-full h-full bg-[#fdfbf7] text-slate-800 p-2 md:p-4 rounded-lg shadow-inner relative overflow-hidden">
+              <>
+                <div className="w-full h-full bg-[#fdfbf7] text-slate-800 p-2 md:p-4 rounded-lg shadow-inner relative overflow-hidden z-10">
                 <div 
                   className="overflow-y-auto h-full text-center flex flex-col items-center py-4 px-2 scrollbar-hide"
                   onScroll={(e) => {
@@ -265,7 +265,7 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLet
                   {!hasScrolled && (
                     <motion.div 
                       initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
-                      className="absolute -bottom-2 left-0 right-0 flex justify-center pointer-events-none z-20"
+                      className="absolute bottom-2 left-0 right-0 flex justify-center pointer-events-none z-20"
                     >
                       <div className="bg-black/80 text-white px-3 py-1 rounded-full text-[10px] uppercase tracking-widest flex items-center gap-1 shadow-lg backdrop-blur-sm">
                         Scroll to read <ChevronDown size={10} />
@@ -273,7 +273,7 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLet
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </>
             )}
 
             {gift.type === 'locket' && (
