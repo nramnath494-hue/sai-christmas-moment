@@ -102,8 +102,8 @@ export default function FloatingLanterns({ onComplete }: Props) {
       SPECIAL_MESSAGES.forEach((msg, index) => {
         lanternsRef.current.push({
           x: canvas.width / 2 + (Math.random() - 0.5) * 200, // Centered-ish
-          y: canvas.height + 100 + (index * 350), // Spaced out vertically in order
-          speed: 0.5, // Consistent speed
+          y: canvas.height + 50 + (index * 250), // Spaced tighter so they appear sooner
+          speed: 1.5, // Faster so they actually reach the top
           size: 22, // Slightly larger
           wobble: Math.random() * Math.PI * 2,
           text: msg,
@@ -116,8 +116,8 @@ export default function FloatingLanterns({ onComplete }: Props) {
         const text = Math.random() > 0.6 ? FLOATING_MESSAGES[Math.floor(Math.random() * FLOATING_MESSAGES.length)] : undefined;
         lanternsRef.current.push({
           x: Math.random() * canvas.width,
-          y: canvas.height + 100 + (SPECIAL_MESSAGES.length * 350) + (Math.random() * 1200), // Start after special messages
-          speed: Math.random() * 0.3 + 0.3,
+          y: canvas.height + 50 + (SPECIAL_MESSAGES.length * 250) + (Math.random() * 800), // Start immediately after special ones
+          speed: Math.random() * 0.5 + 1.0, // Faster random ones too
           size: Math.random() * 10 + 15,
           wobble: Math.random() * Math.PI * 2,
           text: text,
@@ -130,7 +130,7 @@ export default function FloatingLanterns({ onComplete }: Props) {
   const handleRelease = () => {
     if (!wish.trim()) return;
     setReleased(true);
-    setTimeout(onComplete, 25000); // Wait 25s to ensure they reach the top
+    setTimeout(onComplete, 28000); // Extended slightly to 28s to ensure full read time
   };
 
   return (
