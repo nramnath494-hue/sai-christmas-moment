@@ -1,6 +1,6 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState, useRef, MouseEvent } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { Send } from 'lucide-react';
 import { Cormorant_Garamond } from 'next/font/google';
 
@@ -17,6 +17,16 @@ export default function FloatingMessage({ onComplete }: Props) {
   const [showInput, setShowInput] = useState(false);
   const [wish, setWish] = useState("");
   const [wishSent, setWishSent] = useState(false);
+
+  // Wind Effect Logic
+  const mouseX = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  
+  const handleMouseMove = (e: MouseEvent) => {
+    const { clientX } = e;
+    const center = window.innerWidth / 2;
+    mouseX.set((clientX - center) * 0.05); // Gentle sway based on mouse position
+  };
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -53,6 +63,7 @@ export default function FloatingMessage({ onComplete }: Props) {
     <motion.div 
       className="absolute inset-0 overflow-hidden bg-gradient-to-b from-[#0c143e] to-[#020617]"
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      onMouseMove={handleMouseMove}
     >
       {/* Background Elements */}
       <motion.div 
@@ -77,7 +88,10 @@ export default function FloatingMessage({ onComplete }: Props) {
       />
 
       {/* Floating Lanterns */}
-      <div className={`absolute inset-0 pointer-events-none ${isMobile ? '[&>*]:scale-50' : '[&>*]:scale-100'} [&>*]:origin-center`}>
+      <motion.div 
+        className={`absolute inset-0 pointer-events-none ${isMobile ? '[&>*]:scale-50' : '[&>*]:scale-100'} [&>*]:origin-center`}
+        style={{ x: springX }}
+      >
         {visibleLanterns[0] && (
           <FloatingLantern 
             message="I liked imagining you here…"
@@ -106,7 +120,7 @@ export default function FloatingMessage({ onComplete }: Props) {
             yStart={80}
           />
         )}
-      </div>
+      </motion.div>
 
       {/* Make a Wish Input */}
       <AnimatePresence>

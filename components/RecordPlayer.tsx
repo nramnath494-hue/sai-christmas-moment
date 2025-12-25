@@ -6,8 +6,8 @@ import { Cormorant_Garamond } from 'next/font/google';
 const font = Cormorant_Garamond({ subsets: ['latin'], weight: ['400', '600'] });
 
 export const PLAYLIST = [
-  "/O Come, All Ye Faithful - Christmas piano instrumental with lyrics.mp3",
-  "/Angels We Have Heard On High - Christmas piano instrumental - Kaleb Brasee.mp3" // USER: Add your second song file to public folder and rename this
+  "/song1.mp3",
+  "/song2.mp3"
 ];
 
 interface Props {

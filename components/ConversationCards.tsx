@@ -87,6 +87,10 @@ export default function ConversationCards({ onComplete }: Props) {
         onMouseLeave={handleMouseLeave}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       >
+        {/* Deck Stack Visuals */}
+        <div className="absolute top-0 w-full h-full bg-[#2c1810] rounded-xl border border-[#4a2c20] shadow-xl" style={{ transform: 'translateZ(-10px) rotate(2deg)', zIndex: -1 }} />
+        <div className="absolute top-0 w-full h-full bg-[#2c1810] rounded-xl border border-[#4a2c20] shadow-xl" style={{ transform: 'translateZ(-20px) rotate(-1deg)', zIndex: -2 }} />
+
         {/* Particle Burst on Flip */}
         <AnimatePresence>
           {showParticles && (

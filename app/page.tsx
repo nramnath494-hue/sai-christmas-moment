@@ -19,6 +19,7 @@ import Fireworks from '@/components/Fireworks';
 import FoggyWindow from '@/components/FoggyWindow';
 import ConversationCards from '@/components/ConversationCards';
 import FutureVisions from '@/components/FutureVisions';
+import FireflyGarden from '@/components/FireflyGarden';
 
 export const force_dynamic = 'force-dynamic'; // Ensures animations work correctly on Vercel
 
@@ -97,25 +98,26 @@ export default function Home() {
         {act === 8 && <FoggyWindow key="act8" onComplete={() => setAct(9)} />}
         {act === 9 && <ConversationCards key="act9" onComplete={() => setAct(10)} />}
         {act === 10 && <FutureVisions key="act10" onComplete={() => setAct(11)} />}
-        {act === 11 && <ReflectionOverlay key="act11" />}
-        {act === 12 && <GiftUnboxing key="act12" onComplete={() => setAct(13)} />}
+        {act === 11 && <FireflyGarden key="act11" onComplete={() => setAct(12)} />}
+        {act === 12 && <ReflectionOverlay key="act12" />}
+        {act === 13 && <GiftUnboxing key="act13" onComplete={() => setAct(14)} />}
         {/* Final Stop */}
-        {act === 13 && (
+        {act === 14 && (
           <>
             <Fireworks />
-            <FinalStop key="act13" onStop={stopMusic} />
+            <FinalStop key="act14" onStop={stopMusic} />
           </>
         )}
       </AnimatePresence>
       
       {/* Optional: Floating Stop Button for Act 10 (Reflection) */}
-      {act === 11 && (
+      {act === 12 && (
         <motion.div 
           className="absolute bottom-10 right-10 z-50"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 5 }}
         >
           <button 
-            onClick={() => setAct(12)}
+            onClick={() => setAct(13)}
             className="text-white/30 hover:text-white/80 text-xs uppercase tracking-widest transition-colors"
           >
             One Last Surprise
