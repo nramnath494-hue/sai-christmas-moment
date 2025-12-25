@@ -18,6 +18,14 @@ export default function Candle({ onComplete }: Props) {
   const [isExtinguished, setIsExtinguished] = useState(false);
   const [embers, setEmbers] = useState<Array<{ id: number; x: number; y: number; scale: number; opacity: number }>>([]);
   const [showTreats, setShowTreats] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Mouse interaction for flame flicker (Wind effect)
   const mouseX = useMotionValue(0);
@@ -149,7 +157,11 @@ export default function Candle({ onComplete }: Props) {
 
         {/* Treats Section (Left of Candle) */}
         {showTreats && (
-          <div className="absolute bottom-4 left-4 md:bottom-8 md:left-20 md:-translate-x-0 z-40 scale-75 md:scale-100 origin-bottom-left">
+          <div className={`absolute z-40 transition-all duration-1000 ${
+            isMobile 
+              ? "bottom-12 left-1/2 -translate-x-1/2 scale-90 origin-bottom" 
+              : "bottom-4 left-4 md:bottom-8 md:left-20 md:-translate-x-0 scale-75 md:scale-100 origin-bottom-left"
+          }`}>
             <CookiesAndMilk onComplete={onComplete} />
           </div>
         )}
@@ -174,7 +186,8 @@ export default function Candle({ onComplete }: Props) {
          </AnimatePresence>
       </div>
 
-      <div className="absolute bottom-12 md:bottom-20 flex flex-col items-center justify-end h-[500px] w-40 z-20">
+      {(!isMobile || !showTreats) && (
+      <div className="absolute bottom-12 md:bottom-20 flex flex-col items-center justify-end h-[500px] w-40 z-20 scale-75 md:scale-100 origin-bottom">
         {/* Smoke (Only when extinguished) */}
         {isExtinguished && (
            <>
@@ -295,6 +308,7 @@ export default function Candle({ onComplete }: Props) {
             <div className="w-32 h-8 bg-gradient-to-r from-yellow-900 via-yellow-600 to-yellow-900 rounded-[50%] shadow-[0_10px_20px_rgba(0,0,0,0.8),inset_0_2px_5px_rgba(255,255,255,0.2)] border-t border-yellow-400/20" />
         </div>
       </div>
+      )}
     </motion.div>
   );
 }

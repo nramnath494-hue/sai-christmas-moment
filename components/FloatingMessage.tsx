@@ -18,9 +18,10 @@ export default function FloatingMessage({ onComplete }: Props) {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(onComplete, 18000); // Increased duration for the new sequence
+    // Increase duration on mobile to allow sequential animation
+    const timer = setTimeout(onComplete, isMobile ? 25000 : 18000);
     return () => clearTimeout(timer);
-  }, [onComplete]);
+  }, [onComplete, isMobile]);
 
   return (
     <motion.div 
@@ -50,18 +51,18 @@ export default function FloatingMessage({ onComplete }: Props) {
       />
 
       {/* Floating Lanterns */}
-      <div className="absolute inset-0 [&>*]:scale-[0.65] md:[&>*]:scale-100 [&>*]:origin-center pointer-events-none">
+      <div className={`absolute inset-0 pointer-events-none ${isMobile ? '[&>*]:scale-50' : '[&>*]:scale-100'} [&>*]:origin-center`}>
         <FloatingLantern 
           message="I liked imagining you here…"
-          delay={0} duration={15} yStart={isMobile ? 25 : 30}
+          delay={0} duration={isMobile ? 7 : 15} yStart={isMobile ? 70 : 30}
         />
         <FloatingLantern 
           message="On a quiet Christmas night."
-          delay={4} duration={16} yStart={50}
+          delay={isMobile ? 8 : 4} duration={isMobile ? 7 : 16} yStart={isMobile ? 70 : 50}
         />
         <FloatingLantern 
           message="That felt nice."
-          delay={8} duration={14} yStart={isMobile ? 75 : 40}
+          delay={isMobile ? 16 : 8} duration={isMobile ? 7 : 14} yStart={isMobile ? 70 : 40}
         />
       </div>
     </motion.div>

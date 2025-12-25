@@ -102,17 +102,19 @@ export default function ConstellationField({ onComplete }: Props) {
       {/* Santa Animation */}
       <SantaSleigh />
 
-      {starData.map((star) => (
-        <Star
-          key={star.id}
-          {...star}
-          active={starsClicked.includes(star.id)}
-          onClick={() => handleStarClick(star.id)}
-          isAligned={isAligned}
-          alignmentX={50 + (star.id - 3) * (isMobile ? 13 : 15)}
-          alignmentY={(isMobile ? 40 : 30) + Math.abs(star.id - 3) * 3}
-        />
-      ))}
+      <div className={`absolute inset-0 ${isMobile ? 'scale-[0.65] origin-center' : ''}`}>
+        {starData.map((star) => (
+          <Star
+            key={star.id}
+            {...star}
+            active={starsClicked.includes(star.id)}
+            onClick={() => handleStarClick(star.id)}
+            isAligned={isAligned}
+            alignmentX={50 + (star.id - 3) * (isMobile ? 18 : 15)}
+            alignmentY={(isMobile ? 40 : 30) + Math.abs(star.id - 3) * 3}
+          />
+        ))}
+      </div>
 
       {/* Prompt to click stars */}
       {starsClicked.length === 0 && (
@@ -122,7 +124,7 @@ export default function ConstellationField({ onComplete }: Props) {
           animate={{ opacity: 1 }}
           transition={{ delay: 4, duration: 2 }}
         >
-          <p className={`text-indigo-200/80 text-lg md:text-xl tracking-wide ${cormorant.className}`}>Tap the glowing stars to reveal their secrets...</p>
+          <p className={`text-indigo-200/80 text-sm md:text-xl tracking-wide ${cormorant.className}`}>Tap the glowing stars to reveal their secrets...</p>
         </motion.div>
       )}
 
@@ -133,7 +135,7 @@ export default function ConstellationField({ onComplete }: Props) {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <p className={`text-indigo-200 text-lg md:text-xl tracking-wide ${cormorant.className}`}>Thinking of you makes December feel warmer 🌙</p>
+          <p className={`text-indigo-200 text-sm md:text-xl tracking-wide ${cormorant.className}`}>Thinking of you makes December feel warmer 🌙</p>
         </motion.div>
       )}
 
@@ -148,7 +150,7 @@ export default function ConstellationField({ onComplete }: Props) {
               textShadow: ['0 0 30px rgba(252, 211, 77, 0.1)', '0 0 15px rgba(252, 211, 77, 0.5)', '0 0 30px rgba(252, 211, 77, 0.1)']
             }}
             transition={{ filter: { duration: 4, ease: "circOut" }, opacity: { duration: 4, ease: "circOut" }, textShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
-            className={`text-3xl md:text-7xl text-amber-100 uppercase tracking-[0.2em] ${cinzel.className} text-center px-2`}
+            className={`text-2xl md:text-7xl text-amber-100 uppercase tracking-[0.2em] ${cinzel.className} text-center px-2`}
           >
             Illustrious
           </motion.h1>
@@ -158,8 +160,8 @@ export default function ConstellationField({ onComplete }: Props) {
             transition={{ delay: 1.5, duration: 2 }}
             className={`mt-8 text-center space-y-2 ${cormorant.className} px-4`}
           >
-            <p className="text-lg md:text-xl font-light tracking-wide text-indigo-100/80">In a way that doesn’t ask for attention.</p>
-            <p className="text-xl md:text-2xl italic text-amber-100/90">Just appreciation.</p>
+            <p className="text-sm md:text-xl font-light tracking-wide text-indigo-100/80">In a way that doesn’t ask for attention.</p>
+            <p className="text-lg md:text-2xl italic text-amber-100/90">Just appreciation.</p>
           </motion.div>
         </div>
       )}

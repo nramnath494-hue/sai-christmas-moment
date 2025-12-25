@@ -136,7 +136,7 @@ export default function SnowGlobe({ onNext }: Props) {
       <GlobeBackground />
 
       <motion.div 
-        className="relative z-10 mb-8"
+        className="relative z-10 mb-4 md:mb-8"
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         animate={isShaking ? { rotate: [0, -3, 3, -3, 3, 0], scale: 1.02 } : { rotate: 0, scale: 1 }}
         onTap={handleGlobeTap}
@@ -211,13 +211,13 @@ export default function SnowGlobe({ onNext }: Props) {
         </AnimatePresence>
       </motion.div>
       
-      <div className={`text-center space-y-3 max-w-md px-6 relative z-20 ${font.className}`}>
+      <div className={`text-center space-y-2 md:space-y-3 max-w-md px-6 relative z-20 ${font.className}`}>
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }} 
           transition={{ delay: 0.5, duration: 1.5 }}
         >
-          <p className="text-xl md:text-2xl text-indigo-100/90 font-medium tracking-wide drop-shadow-lg">Some people change the feeling of winter…</p>
+          <p className="text-lg md:text-2xl text-indigo-100/90 font-medium tracking-wide drop-shadow-lg">Some people change the feeling of winter…</p>
         </motion.div>
 
         <motion.div 
@@ -225,7 +225,7 @@ export default function SnowGlobe({ onNext }: Props) {
           animate={{ opacity: 1, y: 0 }} 
           transition={{ delay: 2.5, duration: 1.5 }}
         >
-          <p className="text-xl md:text-2xl text-indigo-200/90 italic drop-shadow-md">They make it softer.</p>
+          <p className="text-lg md:text-2xl text-indigo-200/90 italic drop-shadow-md">They make it softer.</p>
         </motion.div>
 
         <motion.div 
@@ -233,7 +233,7 @@ export default function SnowGlobe({ onNext }: Props) {
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }} 
           transition={{ delay: 4.5, duration: 1.5 }}
         >
-          <p className="text-4xl md:text-5xl text-white font-bold drop-shadow-[0_0_20px_rgba(199,210,254,0.5)]">You do that.</p>
+          <p className="text-3xl md:text-5xl text-white font-bold drop-shadow-[0_0_20px_rgba(199,210,254,0.5)]">You do that.</p>
         </motion.div>
 
         <motion.div 
@@ -241,13 +241,13 @@ export default function SnowGlobe({ onNext }: Props) {
           animate={{ opacity: 1 }} 
           transition={{ delay: 6.5, duration: 1.5 }}
         >
-          <p className="text-indigo-200/70 tracking-[0.2em] uppercase text-xs font-sans mt-4 font-medium">Especially at this time of year.</p>
+          <p className="text-indigo-200/70 tracking-[0.2em] uppercase text-[10px] md:text-xs font-sans mt-2 md:mt-4 font-medium">Especially at this time of year.</p>
         </motion.div>
         
         <motion.button 
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 8.5, duration: 1.5 }}
           onClick={hasShaken ? onNext : undefined}
-          className={`group relative px-10 py-3 overflow-hidden rounded-full transition-all duration-500 mt-6 border backdrop-blur-sm ${hasShaken ? 'bg-white/10 border-white/20 hover:bg-white/20 hover:border-white/30 hover:shadow-[0_0_30px_rgba(199,210,254,0.4)] hover:scale-105 active:scale-95 cursor-pointer' : 'bg-white/5 border-white/5 opacity-50 cursor-default'}`}
+          className={`group relative px-8 py-2 md:px-10 md:py-3 overflow-hidden rounded-full transition-all duration-500 mt-4 md:mt-6 border backdrop-blur-sm ${hasShaken ? 'bg-white/10 border-white/20 hover:bg-white/20 hover:border-white/30 hover:shadow-[0_0_30px_rgba(199,210,254,0.4)] hover:scale-105 active:scale-95 cursor-pointer' : 'bg-white/5 border-white/5 opacity-50 cursor-default'}`}
         >
            <span className={`relative z-10 text-xs uppercase tracking-[0.3em] transition-colors duration-500 font-sans font-semibold ${hasShaken ? 'text-indigo-100 group-hover:text-white' : 'text-indigo-200/50'}`}>
             {hasShaken ? "Step into the warmth" : "Look up"}
