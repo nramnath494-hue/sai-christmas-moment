@@ -22,7 +22,7 @@ export default function ReflectionOverlay() {
 
   return (
     <motion.div 
-      className="absolute inset-0 flex items-center justify-center p-6 overflow-hidden"
+      className="absolute inset-0 flex items-center justify-center p-4 md:p-6 overflow-hidden"
       initial={{ opacity: 0 }} animate={{ opacity: 1 }}
     >
       {/* Background Image */}
@@ -51,12 +51,12 @@ export default function ReflectionOverlay() {
       ))}
 
       {/* Glassmorphism Text Container */}
-      <div className={`relative z-10 text-center max-w-3xl p-12 md:p-20 rounded-[3rem] border border-white/10 bg-black/30 backdrop-blur-2xl shadow-2xl space-y-12 ${playfair.className}`}>
+      <div className={`relative z-10 text-center w-full max-w-3xl p-6 md:p-20 rounded-2xl md:rounded-[3rem] border border-white/10 bg-black/30 backdrop-blur-2xl shadow-2xl space-y-6 md:space-y-12 ${playfair.className}`}>
         <motion.p 
           initial={{ opacity: 0, filter: "blur(10px)", y: 20 }} 
           animate={{ opacity: 1, filter: "blur(0px)", y: 0 }} 
           transition={{ delay: 0.5, duration: 2 }}
-          className="text-2xl md:text-4xl text-white font-medium italic tracking-wide leading-relaxed drop-shadow-md"
+          className="text-xl md:text-4xl text-white font-medium italic tracking-wide leading-relaxed drop-shadow-md"
         >
           Some moments aren’t meant to be held onto.<br/>
           They’re meant to be felt…
@@ -65,7 +65,7 @@ export default function ReflectionOverlay() {
           initial={{ opacity: 0, filter: "blur(10px)", y: 20 }} 
           animate={{ opacity: 1, filter: "blur(0px)", y: 0 }} 
           transition={{ delay: 4, duration: 2 }}
-          className="text-lg md:text-2xl text-indigo-100/80 font-light tracking-widest leading-relaxed"
+          className="text-base md:text-2xl text-indigo-100/80 font-light tracking-widest leading-relaxed"
         >
           And remembered when the lights grow quiet.
         </motion.p>
@@ -74,16 +74,16 @@ export default function ReflectionOverlay() {
           initial={{ opacity: 0, scale: 0.95, filter: "blur(5px)" }} 
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }} 
           transition={{ delay: 7.5, duration: 2.5 }}
-          className="pt-12"
+          className="pt-8 md:pt-12"
         >
           <motion.h1 
-            className="text-3xl md:text-6xl text-[#D4AF37] drop-shadow-[0_0_25px_rgba(212,175,55,0.6)] font-bold"
+            className="text-3xl md:text-6xl text-[#D4AF37] drop-shadow-[0_0_25px_rgba(212,175,55,0.6)] font-bold leading-tight"
             animate={{ textShadow: ["0 0 15px rgba(212,175,55,0.3)", "0 0 25px rgba(212,175,55,0.6)", "0 0 15px rgba(212,175,55,0.3)"] }}
             transition={{ duration: 4, repeat: Infinity }}
           >
             Merry Christmas, Sai ✨
           </motion.h1>
-          <p className="text-white/50 text-right mt-4 text-sm md:text-base">
+          <p className="text-white/50 text-right mt-4 text-xs md:text-base">
             From Narendra &lt;3
           </p>
         </motion.div>

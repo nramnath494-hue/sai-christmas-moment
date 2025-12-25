@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Cormorant_Garamond } from 'next/font/google';
 
@@ -12,6 +12,14 @@ interface Props {
 export default function RecordPlayer({ onPlay }: Props) {
   const [isPlaced, setIsPlaced] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handlePlace = () => setIsPlaced(true);
   
@@ -28,11 +36,11 @@ export default function RecordPlayer({ onPlay }: Props) {
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
     >
        {/* Instructions */}
-       <div className="absolute top-24 text-center space-y-4 z-20">
+       <div className="absolute top-12 md:top-24 text-center space-y-4 z-20 w-full px-4">
           {!isPlaced && (
             <motion.p 
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-              className="text-3xl text-amber-100/80 tracking-wide italic"
+              className="text-xl md:text-3xl text-amber-100/80 tracking-wide italic"
             >
               Let's set the mood...
             </motion.p>
@@ -40,7 +48,7 @@ export default function RecordPlayer({ onPlay }: Props) {
           {isPlaced && !isPlaying && (
              <motion.p 
              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-             className="text-3xl text-amber-100/80 tracking-wide italic"
+             className="text-xl md:text-3xl text-amber-100/80 tracking-wide italic"
            >
              Press play.
            </motion.p>
@@ -48,7 +56,7 @@ export default function RecordPlayer({ onPlay }: Props) {
        </div>
 
        {/* Player Base */}
-       <div className="relative w-80 h-80 md:w-96 md:h-96 bg-[#2c1810] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center justify-center border-t border-white/10 scale-90 md:scale-100">
+       <div className="relative w-80 h-80 md:w-96 md:h-96 bg-[#2c1810] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center justify-center border-t border-white/10 scale-[0.65] sm:scale-75 md:scale-100 transition-transform duration-500">
           {/* Wood Texture Overlay */}
           <div className="absolute inset-0 opacity-40 rounded-xl" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/wood-pattern.png')" }} />
           
@@ -65,10 +73,12 @@ export default function RecordPlayer({ onPlay }: Props) {
                }}
                initial={{ x: 300, rotate: 0, opacity: 0 }}
                animate={isPlaced 
-                 ? (isPlaying ? { x: 0, opacity: 1, rotate: 360 } : { x: 0, opacity: 1, rotate: 0 }) 
-                 : { x: 250, opacity: 1, scale: 0.8, rotate: 15 }
+                 ? (isPlaying ? { x: 0, y: 0, opacity: 1, rotate: 360 } : { x: 0, y: 0, opacity: 1, rotate: 0 }) 
+                 : (isMobile 
+                     ? { x: 0, y: 240, opacity: 1, scale: 0.8, rotate: 15 } 
+                     : { x: 250, y: 0, opacity: 1, scale: 0.8, rotate: 15 })
                }
-               whileHover={!isPlaced ? { scale: 0.85, x: 230 } : {}}
+               whileHover={!isPlaced ? (isMobile ? { scale: 0.85, y: 220 } : { scale: 0.85, x: 230 }) : {}}
                onClick={!isPlaced ? handlePlace : undefined}
                transition={isPlaying 
                  ? { rotate: { duration: 2, repeat: Infinity, ease: "linear" } }

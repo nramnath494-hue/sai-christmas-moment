@@ -96,7 +96,7 @@ export default function MomentFreeze({ onComplete }: Props) {
       {/* 3D Card */}
       <div style={{ perspective: 2000 }} className="z-10">
         <motion.div
-          className="relative w-[340px] h-[220px] md:w-[600px] md:h-[400px] drop-shadow-2xl"
+          className="relative w-[90vw] max-w-[340px] h-[220px] md:max-w-none md:w-[600px] md:h-[400px] drop-shadow-2xl"
           initial={{ scale: 0.8, opacity: 0, y: 50 }}
           animate={{ 
             scale: 1, 
@@ -112,17 +112,17 @@ export default function MomentFreeze({ onComplete }: Props) {
           {/* Inside of the Card (Stationary) */}
           <div className="absolute inset-0 flex w-full h-full">
             {/* Inside Left Panel (with Snowman) */}
-            <div className="w-1/2 h-full bg-[#0f1d4a] rounded-l-lg flex items-center justify-center p-8">
-              <MiniatureSnowman className="w-24 h-24 md:w-full md:h-full opacity-80" />
+            <div className="w-1/2 h-full bg-[#0f1d4a] rounded-l-lg flex items-center justify-center p-4 md:p-8">
+              <MiniatureSnowman className="w-16 h-16 md:w-full md:h-full opacity-80" />
             </div>
             {/* Inside Right Panel (with Text) */}
-            <div className="w-1/2 h-full bg-[#0f1d4a] rounded-r-lg p-6 md:p-12 flex flex-col justify-center text-center">
-              <div className={`relative z-10 space-y-6 ${playfair.className}`}>
-                <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.5, duration: 1.5 }} className="text-base md:text-2xl text-indigo-100/90 leading-relaxed">
+            <div className="w-1/2 h-full bg-[#0f1d4a] rounded-r-lg p-3 md:p-12 flex flex-col justify-center text-center">
+              <div className={`relative z-10 space-y-3 md:space-y-6 ${playfair.className}`}>
+                <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.5, duration: 1.5 }} className="text-[10px] sm:text-xs md:text-2xl text-indigo-100/90 leading-relaxed">
                   Some moments ask to be held gently…<br/>
                   as if letting go too fast would be a mistake.
                 </motion.p>
-                <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 5.5, duration: 1.5 }} className={`text-2xl md:text-4xl text-amber-200 drop-shadow-lg ${scriptFont.className}`}>
+                <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 5.5, duration: 1.5 }} className={`text-lg md:text-4xl text-amber-200 drop-shadow-lg ${scriptFont.className}`}>
                   This one felt worth holding.
                 </motion.p>
               </div>

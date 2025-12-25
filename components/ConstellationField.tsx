@@ -16,13 +16,21 @@ export default function ConstellationField({ onComplete }: Props) {
   const [starsClicked, setStarsClicked] = useState<number[]>([]);
   const [isAligned, setIsAligned] = useState(false);
   const [showIllustrious, setShowIllustrious] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const starData = [
-    { id: 1, x: 20, y: 30, label: "Warmth" },
-    { id: 2, x: 80, y: 25, label: "Curiosity" },
-    { id: 3, x: 50, y: 15, label: "Stillness" },
-    { id: 4, x: 30, y: 70, label: "Light" },
-    { id: 5, x: 70, y: 65, label: "Possibility" },
+    { id: 1, x: isMobile ? 20 : 20, y: isMobile ? 35 : 30, label: "Warmth" },
+    { id: 2, x: isMobile ? 80 : 80, y: isMobile ? 30 : 25, label: "Curiosity" },
+    { id: 3, x: 50, y: isMobile ? 20 : 15, label: "Stillness" },
+    { id: 4, x: isMobile ? 25 : 30, y: isMobile ? 65 : 70, label: "Light" },
+    { id: 5, x: isMobile ? 75 : 70, y: isMobile ? 60 : 65, label: "Possibility" },
   ];
 
   const handleStarClick = (id: number) => {
@@ -101,31 +109,31 @@ export default function ConstellationField({ onComplete }: Props) {
           active={starsClicked.includes(star.id)}
           onClick={() => handleStarClick(star.id)}
           isAligned={isAligned}
-          alignmentX={50 + (star.id - 3) * 15}
-          alignmentY={30 + Math.abs(star.id - 3) * 3}
+          alignmentX={50 + (star.id - 3) * (isMobile ? 13 : 15)}
+          alignmentY={(isMobile ? 40 : 30) + Math.abs(star.id - 3) * 3}
         />
       ))}
 
       {/* Prompt to click stars */}
       {starsClicked.length === 0 && (
         <motion.div
-          className="absolute top-1/4 w-full text-center pointer-events-none"
+          className="absolute top-[15%] md:top-1/4 w-full text-center pointer-events-none px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 4, duration: 2 }}
         >
-          <p className={`text-indigo-200/80 text-xl tracking-wide ${cormorant.className}`}>Tap the glowing stars to reveal their secrets...</p>
+          <p className={`text-indigo-200/80 text-lg md:text-xl tracking-wide ${cormorant.className}`}>Tap the glowing stars to reveal their secrets...</p>
         </motion.div>
       )}
 
       {/* Hidden Message */}
       {starsClicked.includes(3) && !isAligned && (
         <motion.div 
-          className="absolute bottom-10 w-full text-center"
+          className="absolute bottom-20 md:bottom-10 w-full text-center px-4"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <p className={`text-indigo-200 text-xl tracking-wide ${cormorant.className}`}>Thinking of you makes December feel warmer 🌙</p>
+          <p className={`text-indigo-200 text-lg md:text-xl tracking-wide ${cormorant.className}`}>Thinking of you makes December feel warmer 🌙</p>
         </motion.div>
       )}
 
@@ -140,7 +148,7 @@ export default function ConstellationField({ onComplete }: Props) {
               textShadow: ['0 0 30px rgba(252, 211, 77, 0.1)', '0 0 15px rgba(252, 211, 77, 0.5)', '0 0 30px rgba(252, 211, 77, 0.1)']
             }}
             transition={{ filter: { duration: 4, ease: "circOut" }, opacity: { duration: 4, ease: "circOut" }, textShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
-            className={`text-4xl md:text-7xl text-amber-100 uppercase tracking-[0.2em] ${cinzel.className}`}
+            className={`text-3xl md:text-7xl text-amber-100 uppercase tracking-[0.2em] ${cinzel.className} text-center px-2`}
           >
             Illustrious
           </motion.h1>
@@ -148,10 +156,10 @@ export default function ConstellationField({ onComplete }: Props) {
             initial={{ opacity: 0, y: 10 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ delay: 1.5, duration: 2 }}
-            className={`mt-8 text-center space-y-2 ${cormorant.className}`}
+            className={`mt-8 text-center space-y-2 ${cormorant.className} px-4`}
           >
-            <p className="text-xl font-light tracking-wide text-indigo-100/80">In a way that doesn’t ask for attention.</p>
-            <p className="text-2xl italic text-amber-100/90">Just appreciation.</p>
+            <p className="text-lg md:text-xl font-light tracking-wide text-indigo-100/80">In a way that doesn’t ask for attention.</p>
+            <p className="text-xl md:text-2xl italic text-amber-100/90">Just appreciation.</p>
           </motion.div>
         </div>
       )}

@@ -32,7 +32,7 @@ export default function SnowGlobe({ onNext }: Props) {
       // Calculate total acceleration (ignoring gravity usually gives cleaner shake data, but support varies)
       const accel = Math.abs(acceleration.x || 0) + Math.abs(acceleration.y || 0) + Math.abs(acceleration.z || 0);
       
-      if (accel > 15) { // Shake threshold
+      if (accel > 10) { // Lowered threshold for easier detection
         triggerShake();
       }
     };
@@ -93,11 +93,25 @@ export default function SnowGlobe({ onNext }: Props) {
 
   const triggerShake = () => {
     setIsShaking(true);
-    setShakeSpeed(5);
+    setShakeSpeed(12); // Faster snow when shaking
     setHasShaken(true);
-    setTimeout(() => { setIsShaking(false); setShakeSpeed(1); }, 1500);
+    setTimeout(() => { setIsShaking(false); setShakeSpeed(1); }, 2500);
     
     if (hintState === 'shake') setHintState('done');
+  };
+
+  const handleGlobeTap = () => {
+    // Request permission for iOS 13+ devices
+    if (typeof DeviceMotionEvent !== 'undefined' && (DeviceMotionEvent as any).requestPermission) {
+      (DeviceMotionEvent as any).requestPermission()
+        .then((response: string) => {
+          if (response === 'granted') {
+            // Permission granted
+          }
+        })
+        .catch(console.error);
+    }
+    triggerShake();
   };
 
   const handleTreeTap = (e: React.MouseEvent | React.TouchEvent | any) => {
@@ -125,7 +139,7 @@ export default function SnowGlobe({ onNext }: Props) {
         className="relative z-10 mb-8"
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         animate={isShaking ? { rotate: [0, -3, 3, -3, 3, 0], scale: 1.02 } : { rotate: 0, scale: 1 }}
-        onTap={() => triggerShake()}
+        onTap={handleGlobeTap}
       >
         {/* Globe Container */}
         <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-full border border-indigo-200/10 bg-gradient-to-b from-indigo-950/30 to-indigo-900/10 backdrop-blur-[1px] overflow-hidden shadow-[0_0_60px_-10px_rgba(199,210,254,0.1),inset_0_0_50px_rgba(255,255,255,0.05)]">

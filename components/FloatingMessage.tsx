@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 import FloatingLantern from './FloatingLantern';
@@ -8,6 +8,15 @@ interface Props {
 }
 
 export default function FloatingMessage({ onComplete }: Props) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   useEffect(() => {
     const timer = setTimeout(onComplete, 18000); // Increased duration for the new sequence
     return () => clearTimeout(timer);
@@ -41,18 +50,20 @@ export default function FloatingMessage({ onComplete }: Props) {
       />
 
       {/* Floating Lanterns */}
-      <FloatingLantern 
-        message="I liked imagining you here…"
-        delay={0} duration={15} yStart={30}
-      />
-      <FloatingLantern 
-        message="On a quiet Christmas night."
-        delay={4} duration={16} yStart={50}
-      />
-      <FloatingLantern 
-        message="That felt nice."
-        delay={8} duration={14} yStart={40}
-      />
+      <div className="absolute inset-0 [&>*]:scale-[0.65] md:[&>*]:scale-100 [&>*]:origin-center pointer-events-none">
+        <FloatingLantern 
+          message="I liked imagining you here…"
+          delay={0} duration={15} yStart={isMobile ? 25 : 30}
+        />
+        <FloatingLantern 
+          message="On a quiet Christmas night."
+          delay={4} duration={16} yStart={50}
+        />
+        <FloatingLantern 
+          message="That felt nice."
+          delay={8} duration={14} yStart={isMobile ? 75 : 40}
+        />
+      </div>
     </motion.div>
   );
 }

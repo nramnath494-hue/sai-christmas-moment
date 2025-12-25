@@ -133,7 +133,7 @@ export default function Candle({ onComplete }: Props) {
       </div>
 
       {/* Fireplace in Background */}
-      <div className="absolute bottom-24 md:bottom-40 right-4 md:right-10 opacity-90 scale-75 md:scale-90 drop-shadow-[0_0_50px_rgba(234,88,12,0.2)] origin-bottom-right">
+      <div className="absolute bottom-20 -right-8 md:bottom-40 md:right-10 opacity-90 scale-[0.6] md:scale-90 drop-shadow-[0_0_50px_rgba(234,88,12,0.2)] origin-bottom-right pointer-events-none">
         <Fireplace />
       </div>
 
@@ -149,7 +149,7 @@ export default function Candle({ onComplete }: Props) {
 
         {/* Treats Section (Left of Candle) */}
         {showTreats && (
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 md:left-20 md:-translate-x-0 z-40">
+          <div className="absolute bottom-4 left-4 md:bottom-8 md:left-20 md:-translate-x-0 z-40 scale-75 md:scale-100 origin-bottom-left">
             <CookiesAndMilk onComplete={onComplete} />
           </div>
         )}
@@ -166,7 +166,7 @@ export default function Candle({ onComplete }: Props) {
                transition={{ duration: 1.5 }}
                className="flex flex-col items-center gap-2"
              >
-               <p className={`text-4xl md:text-6xl text-orange-50 drop-shadow-[0_0_20px_rgba(251,146,60,0.3)] leading-tight max-w-2xl md:max-w-4xl mx-auto ${scriptFont.className}`}>
+               <p className={`text-3xl md:text-6xl text-orange-50 drop-shadow-[0_0_20px_rgba(251,146,60,0.3)] leading-tight max-w-xs md:max-w-4xl mx-auto ${scriptFont.className}`}>
                  {message}
                </p>
              </motion.div>
@@ -174,7 +174,7 @@ export default function Candle({ onComplete }: Props) {
          </AnimatePresence>
       </div>
 
-      <div className="absolute bottom-16 md:bottom-20 flex flex-col items-center justify-end h-[500px] w-40 z-20">
+      <div className="absolute bottom-12 md:bottom-20 flex flex-col items-center justify-end h-[500px] w-40 z-20">
         {/* Smoke (Only when extinguished) */}
         {isExtinguished && (
            <>
