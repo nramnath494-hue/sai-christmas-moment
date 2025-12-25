@@ -187,6 +187,8 @@ export default function GiftUnboxing({ onComplete }: Props) {
 }
 
 function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLetterRead }: any) {
+  const [hasScrolled, setHasScrolled] = useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -245,6 +247,9 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLet
                   className="overflow-y-auto h-full text-center flex flex-col items-center py-4 px-2 scrollbar-hide"
                   onScroll={(e) => {
                     const target = e.currentTarget;
+                    if (!hasScrolled && target.scrollTop > 5) {
+                      setHasScrolled(true);
+                    }
                     // Check if scrolled to bottom (with small buffer)
                     if (target.scrollHeight - target.scrollTop <= target.clientHeight + 50) {
                       onLetterRead();
@@ -256,14 +261,18 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLet
                   </p>
                 </div>
                 </div>
-                <div className="absolute -bottom-2 left-0 right-0 flex justify-center pointer-events-none z-20">
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                    className="bg-black/80 text-white px-3 py-1 rounded-full text-[10px] uppercase tracking-widest flex items-center gap-1 shadow-lg backdrop-blur-sm"
-                  >
-                    Scroll to read <ChevronDown size={10} />
-                  </motion.div>
-                </div>
+                <AnimatePresence>
+                  {!hasScrolled && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
+                      className="absolute -bottom-2 left-0 right-0 flex justify-center pointer-events-none z-20"
+                    >
+                      <div className="bg-black/80 text-white px-3 py-1 rounded-full text-[10px] uppercase tracking-widest flex items-center gap-1 shadow-lg backdrop-blur-sm">
+                        Scroll to read <ChevronDown size={10} />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             )}
 

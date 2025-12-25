@@ -25,7 +25,7 @@ export default function FloatingLanterns({ onComplete }: Props) {
   const [wish, setWish] = useState("");
   const [released, setReleased] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const lanternsRef = useRef<{ x: number; y: number; speed: number; size: number; wobble: number; text?: string }[]>([]);
+  const lanternsRef = useRef<{ x: number; y: number; speed: number; size: number; wobble: number; text?: string; isSpecial?: boolean }[]>([]);
 
   // Background Lantern Animation
   useEffect(() => {
@@ -36,6 +36,13 @@ export default function FloatingLanterns({ onComplete }: Props) {
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
 
     // Animation Loop
     const animate = () => {
@@ -70,8 +77,9 @@ export default function FloatingLanterns({ onComplete }: Props) {
 
         // Draw Text if present
         if (l.text) {
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-          ctx.font = `${l.size * 0.8}px serif`;
+          const fontSize = l.isSpecial ? l.size * 1.2 : l.size * 0.8;
+          ctx.fillStyle = l.isSpecial ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.6)';
+          ctx.font = `${l.isSpecial ? 'bold ' : ''}${fontSize}px serif`;
           ctx.textAlign = 'center';
           ctx.fillText(l.text, l.x, l.y + l.size * 2.5);
         }
@@ -80,6 +88,8 @@ export default function FloatingLanterns({ onComplete }: Props) {
       requestAnimationFrame(animate);
     };
     animate();
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Populate lanterns ONLY after release
@@ -90,19 +100,25 @@ export default function FloatingLanterns({ onComplete }: Props) {
 
       for (let i = 0; i < 40; i++) {
         let text = undefined;
+        let isSpecial = false;
+        let startYOffset = 500; // Default random spread below screen
+
         if (i < SPECIAL_MESSAGES.length) {
           text = SPECIAL_MESSAGES[i];
+          isSpecial = true;
+          startYOffset = 200; // Spawn special ones closer so they appear sooner
         } else if (Math.random() > 0.7) {
           text = FLOATING_MESSAGES[Math.floor(Math.random() * FLOATING_MESSAGES.length)];
         }
 
         lanternsRef.current.push({
           x: Math.random() * canvas.width,
-          y: canvas.height + Math.random() * 500, // Start well below screen
-          speed: Math.random() * 0.3 + 0.2, // Much slower speed (was 1 + 0.5)
-          size: Math.random() * 15 + 10,
+          y: canvas.height + Math.random() * startYOffset, 
+          speed: isSpecial ? 0.4 : Math.random() * 0.3 + 0.3, // Consistent slow speed for reading
+          size: isSpecial ? Math.random() * 5 + 18 : Math.random() * 15 + 10, // Bigger lanterns for special msgs
           wobble: Math.random() * Math.PI * 2,
-          text: text
+          text: text,
+          isSpecial: isSpecial
         });
       }
     }
@@ -111,7 +127,7 @@ export default function FloatingLanterns({ onComplete }: Props) {
   const handleRelease = () => {
     if (!wish.trim()) return;
     setReleased(true);
-    setTimeout(onComplete, 12000); // Wait longer (12s) for slow float and reading
+    setTimeout(onComplete, 25000); // Wait 25s to ensure they reach the top
   };
 
   return (
