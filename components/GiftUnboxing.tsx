@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cormorant_Garamond, Great_Vibes } from 'next/font/google';
 import { Gift, Download, ArrowRight, Heart, X, Watch, Clock, Sparkles, ChevronDown } from 'lucide-react';
@@ -50,7 +50,7 @@ const gifts: GiftType[] = [
     id: 4, 
     name: "A Letter", 
     type: 'letter', 
-    content: "Dear Sai,\n\nAs the year winds down and the lights glow a little brighter, I found myself thinking of you.\n\nI wanted to share a few small things that remind me of the spark you carry—the way you make time feel a little more special, and the quiet joy you bring just by being yourself.\n\nThis season is about magic, but I think the best kind of magic is the kind we find in simple moments and genuine connections.\n\nI hope these little gifts bring a smile to your face. Thank you for being a beautiful part of my story this year.\n\nMerry Christmas.\n\n- Narendra",
+    content: "Dear Sai,\n\nAs the year winds down and the lights glow a little brighter, I found myself thinking of you.\n\nI wanted to share a few small things that remind me of the spark you carry—the way you make time feel a little more special, and the quiet joy you bring just by being yourself.\n\nThis season is about magic, but I think the best kind of magic is the kind we find in simple moments and genuine connections.\n\nI hope these little gifts bring a smile to your face. Although short so far, Thank you for being a beautiful part of my story this year.\n\nMerry Christmas.\n\n- Narendra",
     color: "bg-slate-100"
   },
   { 
@@ -71,18 +71,22 @@ const gifts: GiftType[] = [
 export default function GiftUnboxing({ onComplete }: Props) {
   const [openedGifts, setOpenedGifts] = useState<number[]>([]);
   const [locketOpen, setLocketOpen] = useState(false);
+  const [letterRead, setLetterRead] = useState(false);
   const [showSavePrompt, setShowSavePrompt] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const allOpened = openedGifts.length === gifts.length;
 
+  useEffect(() => {
+    if (allOpened && letterRead) {
+      setTimeout(() => setShowSavePrompt(true), 1500);
+    }
+  }, [allOpened, letterRead]);
+
   const handleOpen = (id: number) => {
     if (!openedGifts.includes(id)) {
       setOpenedGifts([...openedGifts, id]);
-      if (openedGifts.length + 1 === gifts.length) {
-        setTimeout(() => setShowSavePrompt(true), 2000);
-      }
     }
   };
 
@@ -142,6 +146,7 @@ export default function GiftUnboxing({ onComplete }: Props) {
               index={index}
               locketOpen={locketOpen}
               setLocketOpen={setLocketOpen}
+              onLetterRead={() => setLetterRead(true)}
             />
           ))}
         </div>
@@ -181,7 +186,7 @@ export default function GiftUnboxing({ onComplete }: Props) {
   );
 }
 
-function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen }: any) {
+function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLetterRead }: any) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -235,13 +240,27 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen }: any
 
             {gift.type === 'letter' && (
               <div className="w-full h-full bg-[#fdfbf7] text-slate-800 p-2 md:p-4 rounded-lg shadow-inner relative">
-                <div className="overflow-y-auto h-full text-center flex flex-col items-center py-4 px-2 scrollbar-hide">
-                <p className="whitespace-pre-wrap text-[10px] md:text-xs leading-relaxed font-serif italic">
-                  {gift.content}
-                </p>
+                <div 
+                  className="overflow-y-auto h-full text-center flex flex-col items-center py-4 px-2 scrollbar-hide"
+                  onScroll={(e) => {
+                    const target = e.currentTarget;
+                    // Check if scrolled to bottom (with small buffer)
+                    if (target.scrollHeight - target.scrollTop <= target.clientHeight + 50) {
+                      onLetterRead();
+                    }
+                  }}
+                >
+                  <p className="whitespace-pre-wrap text-[10px] md:text-xs leading-relaxed font-serif italic pb-8">
+                    {gift.content}
+                  </p>
                 </div>
-                <div className="absolute bottom-2 left-0 right-0 flex justify-center pointer-events-none opacity-40 animate-bounce">
-                  <span className="text-[8px] uppercase tracking-widest text-slate-400 flex items-center gap-1">Scroll <ChevronDown size={8} /></span>
+                <div className="absolute bottom-4 left-0 right-0 flex justify-center pointer-events-none">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    className="bg-black/80 text-white px-3 py-1 rounded-full text-[10px] uppercase tracking-widest flex items-center gap-1 shadow-lg backdrop-blur-sm"
+                  >
+                    Scroll to read <ChevronDown size={10} />
+                  </motion.div>
                 </div>
               </div>
             )}

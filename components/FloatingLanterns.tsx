@@ -25,6 +25,7 @@ export default function FloatingLanterns({ onComplete }: Props) {
   const [wish, setWish] = useState("");
   const [released, setReleased] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const lanternsRef = useRef<{ x: number; y: number; speed: number; size: number; wobble: number; text?: string }[]>([]);
 
   // Background Lantern Animation
   useEffect(() => {
@@ -36,27 +37,7 @@ export default function FloatingLanterns({ onComplete }: Props) {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const lanterns: { x: number; y: number; speed: number; size: number; wobble: number; text?: string }[] = [];
-
-    for (let i = 0; i < 50; i++) {
-      let text = undefined;
-      // Ensure special messages appear
-      if (i < SPECIAL_MESSAGES.length) {
-        text = SPECIAL_MESSAGES[i];
-      } else if (Math.random() > 0.8) {
-        text = FLOATING_MESSAGES[Math.floor(Math.random() * FLOATING_MESSAGES.length)];
-      }
-
-      lanterns.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height + canvas.height, // Start below or scattered
-        speed: Math.random() * 1 + 0.5,
-        size: Math.random() * 15 + 10,
-        wobble: Math.random() * Math.PI * 2,
-        text: text
-      });
-    }
-
+    // Animation Loop
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
@@ -67,7 +48,7 @@ export default function FloatingLanterns({ onComplete }: Props) {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      lanterns.forEach(l => {
+      lanternsRef.current.forEach(l => {
         l.y -= l.speed;
         l.x += Math.sin(l.wobble) * 0.5;
         l.wobble += 0.02;
@@ -100,6 +81,32 @@ export default function FloatingLanterns({ onComplete }: Props) {
     };
     animate();
   }, []);
+
+  // Populate lanterns ONLY after release
+  useEffect(() => {
+    if (released) {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      for (let i = 0; i < 40; i++) {
+        let text = undefined;
+        if (i < SPECIAL_MESSAGES.length) {
+          text = SPECIAL_MESSAGES[i];
+        } else if (Math.random() > 0.7) {
+          text = FLOATING_MESSAGES[Math.floor(Math.random() * FLOATING_MESSAGES.length)];
+        }
+
+        lanternsRef.current.push({
+          x: Math.random() * canvas.width,
+          y: canvas.height + Math.random() * 500, // Start well below screen
+          speed: Math.random() * 0.3 + 0.2, // Much slower speed (was 1 + 0.5)
+          size: Math.random() * 15 + 10,
+          wobble: Math.random() * Math.PI * 2,
+          text: text
+        });
+      }
+    }
+  }, [released]);
 
   const handleRelease = () => {
     if (!wish.trim()) return;
