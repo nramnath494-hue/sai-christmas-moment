@@ -197,19 +197,23 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen }: any
             exit={{ scale: 1.1, opacity: 0, rotate: 10 }}
             whileHover={{ scale: 1.05, rotate: 2 }}
             whileTap={{ scale: 0.95 }}
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
-            className={`w-full h-full rounded-2xl shadow-xl flex flex-col items-center justify-center relative overflow-hidden group ${gift.color}`}
+            className={`w-full h-full rounded-2xl shadow-xl relative overflow-hidden group ${gift.color}`}
           >
-            {/* Ribbon */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-4 md:w-8 h-full bg-black/10" />
-              <div className="absolute w-full h-4 md:h-8 bg-black/10" />
-            </div>
-            <Gift size={48} className="text-slate-800/50 mb-2 relative z-10" />
-            <span className="text-slate-800/70 font-semibold uppercase tracking-widest text-xs md:text-sm relative z-10 flex items-center gap-2">
-              Tap to Open <Sparkles size={12} />
-            </span>
+            <motion.div 
+              className="w-full h-full flex flex-col items-center justify-center"
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
+            >
+              {/* Ribbon */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-4 md:w-8 h-full bg-black/10" />
+                <div className="absolute w-full h-4 md:h-8 bg-black/10" />
+              </div>
+              <Gift size={48} className="text-slate-800/50 mb-2 relative z-10" />
+              <span className="text-slate-800/70 font-semibold uppercase tracking-widest text-xs md:text-sm relative z-10 flex items-center gap-2">
+                Tap to Open <Sparkles size={12} />
+              </span>
+            </motion.div>
           </motion.button>
         ) : (
           <motion.div

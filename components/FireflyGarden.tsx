@@ -148,7 +148,7 @@ export default function FireflyGarden({ onComplete }: Props) {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }}
           className="text-amber-200/60 mt-4 text-lg tracking-widest uppercase"
         >
-          May your holidays sparkle
+          Touch the screen to guide the light...
         </motion.p>
       </div>
 
