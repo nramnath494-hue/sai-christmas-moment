@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 // Components
@@ -11,7 +11,7 @@ import MomentFreeze from '@/components/MomentFreeze';
 import ConstellationField from '@/components/ConstellationField';
 import FloatingMessage from '@/components/FloatingMessage';
 import ReflectionOverlay from '@/components/ReflectionOverlay';
-import RecordPlayer from '@/components/RecordPlayer';
+import RecordPlayer, { PLAYLIST } from '@/components/RecordPlayer';
 import GiftUnboxing from '@/components/GiftUnboxing';
 import FinalStop from '@/components/FinalStop';
 import CursorSparkles from '@/components/CursorSparkles';
@@ -22,10 +22,9 @@ import FutureVisions from '@/components/FutureVisions';
 
 export const force_dynamic = 'force-dynamic'; // Ensures animations work correctly on Vercel
 
-const AUDIO_URL = "/O Come, All Ye Faithful - Christmas piano instrumental with lyrics.mp3"; // Path relative to the public folder
-
 export default function Home() {
   const [act, setAct] = useState(1);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const startMusic = () => {
@@ -60,9 +59,23 @@ export default function Home() {
     }
   };
 
+  const nextSong = () => {
+    if (audioRef.current) {
+      const nextIndex = (currentSongIndex + 1) % PLAYLIST.length;
+      setCurrentSongIndex(nextIndex);
+      // Small timeout to allow src change to propagate
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.play().catch(e => console.log("Audio play failed", e));
+        }
+      }, 100);
+    }
+  };
+
   return (
     <main className="relative w-full h-screen overflow-hidden bg-[#050814] selection:bg-indigo-500/30">
-      <audio ref={audioRef} src={AUDIO_URL} loop />
+      {/* Audio Element with onEnded listener to auto-play next song */}
+      <audio ref={audioRef} src={PLAYLIST[currentSongIndex]} onEnded={nextSong} />
       
       {/* Global Background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#050814] to-[#050814]" />

@@ -13,8 +13,9 @@ interface Props {
 
 const visions = [
   { id: 1, text: "Coffee dates pending...", src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80" },
-  { id: 2, text: "Late night drives", src: "https://images.unsplash.com/photo-1495570689269-d883b1e9510b?auto=format&fit=crop&w=600&q=80" },
-  { id: 3, text: "Just existing together", src: "https://images.unsplash.com/photo-1516575334481-f85287c2c81d?auto=format&fit=crop&w=600&q=80" },
+  { id: 2, text: "Late night drives", src: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=600&q=80" },
+  { id: 3, text: "Gym sessions", src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" },
+  { id: 4, text: "Just existing together", src: "https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?auto=format&fit=crop&w=600&q=80" },
 ];
 
 export default function FutureVisions({ onComplete }: Props) {
