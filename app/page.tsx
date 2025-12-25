@@ -16,6 +16,8 @@ import GiftUnboxing from '@/components/GiftUnboxing';
 import FinalStop from '@/components/FinalStop';
 import CursorSparkles from '@/components/CursorSparkles';
 import Fireworks from '@/components/Fireworks';
+import FoggyWindow from '@/components/FoggyWindow';
+import ConversationCards from '@/components/ConversationCards';
 
 export const force_dynamic = 'force-dynamic'; // Ensures animations work correctly on Vercel
 
@@ -78,25 +80,27 @@ export default function Home() {
         {act === 5 && <MomentFreeze key="act5" onComplete={() => setAct(6)} />}
         {act === 6 && <ConstellationField key="act6" onComplete={() => setAct(7)} />}
         {act === 7 && <FloatingMessage key="act7" onComplete={() => setAct(8)} />}
-        {act === 8 && <ReflectionOverlay key="act8" />}
-        {act === 9 && <GiftUnboxing key="act9" onComplete={() => setAct(10)} />}
+        {act === 8 && <FoggyWindow key="act8" onComplete={() => setAct(9)} />}
+        {act === 9 && <ConversationCards key="act9" onComplete={() => setAct(10)} />}
+        {act === 10 && <ReflectionOverlay key="act10" />}
+        {act === 11 && <GiftUnboxing key="act11" onComplete={() => setAct(12)} />}
         {/* Final Stop */}
-        {act === 10 && (
+        {act === 12 && (
           <>
             <Fireworks />
-            <FinalStop key="act10" onStop={stopMusic} />
+            <FinalStop key="act12" onStop={stopMusic} />
           </>
         )}
       </AnimatePresence>
       
-      {/* Optional: Floating Stop Button for Act 8 */}
-      {act === 8 && (
+      {/* Optional: Floating Stop Button for Act 10 (Reflection) */}
+      {act === 10 && (
         <motion.div 
           className="absolute bottom-10 right-10 z-50"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 5 }}
         >
           <button 
-            onClick={() => setAct(9)}
+            onClick={() => setAct(11)}
             className="text-white/30 hover:text-white/80 text-xs uppercase tracking-widest transition-colors"
           >
             One Last Surprise
