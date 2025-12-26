@@ -21,6 +21,7 @@ import FoggyWindow from '@/components/FoggyWindow';
 import ConversationCards from '@/components/ConversationCards';
 import FutureVisions from '@/components/FutureVisions';
 import FireflyGarden from '@/components/FireflyGarden';
+import SantaGame from '@/components/SantaGame';
 
 export const force_dynamic = 'force-dynamic'; // Ensures animations work correctly on Vercel
 
@@ -97,30 +98,31 @@ export default function Home() {
         {act === 6 && <ConstellationField key="act6" onComplete={() => setAct(7)} />}
         {act === 7 && <FloatingLanterns key="act7" onComplete={() => setAct(8)} />}
         {act === 8 && <FoggyWindow key="act8" onComplete={() => setAct(9)} />}
-        {act === 9 && <ConversationCards key="act9" onComplete={() => setAct(10)} />}
-        {act === 10 && <FutureVisions key="act10" onComplete={() => setAct(11)} />}
-        {act === 11 && <FireflyGarden key="act11" onComplete={() => setAct(12)} />}
-        {act === 12 && <ReflectionOverlay key="act12" />}
-        {act === 13 && <GiftUnboxing key="act13" onComplete={() => setAct(14)} />}
+        {act === 9 && <SantaGame key="act9" onComplete={() => setAct(10)} />}
+        {act === 10 && <ConversationCards key="act10" onComplete={() => setAct(11)} />}
+        {act === 11 && <FutureVisions key="act11" onComplete={() => setAct(12)} />}
+        {act === 12 && <FireflyGarden key="act12" onComplete={() => setAct(13)} />}
+        {act === 13 && <ReflectionOverlay key="act13" />}
+        {act === 14 && <GiftUnboxing key="act14" onComplete={() => setAct(15)} />}
           
-        {act === 14 && <ThankYou key="act14" onComplete={() => setAct(15)} />}
+        {act === 15 && <ThankYou key="act15" onComplete={() => setAct(16)} />}
         
-        {act === 15 && (
+        {act === 16 && (
           <>
             <Fireworks />
-            <FinalStop key="act15" onStop={stopMusic} />
+            <FinalStop key="act16" onStop={stopMusic} />
           </>
         )}
       </AnimatePresence>
       
-      {/* Optional: Floating Stop Button for Act 10 (Reflection) */}
-      {act === 12 && (
+      {/* Optional: Floating Stop Button for Reflection Act */}
+      {act === 13 && (
         <motion.div 
           className="absolute bottom-10 right-10 z-50"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 5 }}
         >
           <button 
-            onClick={() => setAct(13)}
+            onClick={() => setAct(14)}
             className="text-white/30 hover:text-white/80 text-xs uppercase tracking-widest transition-colors"
           >
             One Last Surprise
