@@ -119,11 +119,14 @@ export default function MomentFreeze({ onComplete }: Props) {
             <div className="w-1/2 h-full bg-[#0f1d4a] rounded-r-lg p-3 md:p-12 flex flex-col justify-center text-center">
               <div className={`relative z-10 space-y-3 md:space-y-6 ${playfair.className}`}>
                 <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.5, duration: 1.5 }} className="text-[10px] sm:text-xs md:text-2xl text-indigo-100/90 leading-relaxed">
-                  Some moments ask to be held gently…<br/>
-                  as if letting go too fast would be a mistake.
+                  There is a quiet beauty in simply pausing…<br/>
+                  in letting the noise fade away,<br/>
+                  and letting the rest of the world wait.<br/>
+                  To find a stillness that feels like ours,<br/>
+                  and simply exist in the now.
                 </motion.p>
-                <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 5.5, duration: 1.5 }} className={`text-lg md:text-4xl text-amber-200 drop-shadow-lg ${scriptFont.className}`}>
-                  This one felt worth holding.
+                <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 5.5, duration: 1.5 }} className={`text-base md:text-4xl text-amber-200 drop-shadow-lg ${scriptFont.className}`}>
+                  I found myself wishing we could stay right here.
                 </motion.p>
               </div>
             </div>

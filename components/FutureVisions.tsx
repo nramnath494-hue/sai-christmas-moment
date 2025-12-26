@@ -98,7 +98,7 @@ export default function FutureVisions({ onComplete }: Props) {
               onClick={onComplete}
               className="group flex items-center gap-3 px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all backdrop-blur-sm border border-white/10"
             >
-              Continue <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              Step into the magic <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </motion.div>
         )}

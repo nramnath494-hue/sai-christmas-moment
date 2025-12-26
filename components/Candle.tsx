@@ -93,10 +93,10 @@ export default function Candle({ onComplete }: Props) {
   }, [isExtinguished]);
 
   useEffect(() => {
-    if (height < 85 && height > 84) setMessage("The quietest moments often hold the most warmth...");
-    if (height < 60 && height > 59) setMessage("Being present with you is its own kind of magic.");
-    if (height < 35 && height > 34) setMessage("Hoping this moment feels like a quiet comfort.");
-    if (height < 15 && height > 14) setMessage("Just a little longer...");
+    if (height < 85 && height > 84) setMessage("The quietest moments often carry the deepest warmth...");
+    if (height < 60 && height > 59) setMessage("There is a simple magic in just sharing this moment with you.");
+    if (height < 35 && height > 34) setMessage("I hope this stillness feels like a gentle embrace.");
+    if (height < 15 && height > 14) setMessage("Let the light linger just a moment more...");
 
     if (height <= 0 && !isExtinguished) {
       setIsExtinguished(true);

@@ -50,7 +50,7 @@ const gifts: GiftType[] = [
     id: 4, 
     name: "A Letter", 
     type: 'letter', 
-    content: "Dear Sai,\n\nAs the year winds down and the lights glow a little brighter, I found myself thinking of you.\n\nI wanted to share a few small things that remind me of the spark you carry—the way you make time feel a little more special, and the quiet joy you bring just by being yourself.\n\nThis season is about magic, but I think the best kind of magic is the kind we find in simple moments and genuine connections.\n\nI hope these little gifts bring a smile to your face. Although short so far, Thank you for being a beautiful part of my story this year.\n\nMerry Christmas.\n\n- Narendra",
+    content: "Dear Sai,\n\nAs the year softens into winter and the lights glow a little brighter, I found myself thinking of you.\n\nI wanted to share a few small tokens that remind me of the spark you carry—the way you make time feel a little more special, and the quiet warmth you bring just by being yourself.\n\nThis season is full of magic, but I think the truest magic is found in simple moments and the beauty of getting to know someone new.\n\nI hope these gifts bring a smile to your face. It hasn't been long, but you've already become a beautiful part of my story this year.\n\nMerry Christmas.\n\n- Narendra",
     color: "bg-slate-100"
   },
   { 

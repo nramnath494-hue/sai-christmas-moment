@@ -81,7 +81,7 @@ export default function LetterCard({ onStart }: Props) {
             transition={{ delay: 0.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }}
           >
             <p className="text-indigo-900/60 text-[10px] md:text-sm uppercase tracking-[0.25em] mb-2 md:mb-4 font-sans font-bold opacity-80">A Note for You</p>
-            <p className="text-slate-800 font-normal text-xl md:text-2xl">I kept thinking about what I could give you for Christmas…</p>
+            <p className="text-slate-800 font-normal text-xl md:text-2xl">I spent some time thinking about what I could give you this Christmas...</p>
           </motion.div>
 
           <motion.div 
@@ -90,26 +90,36 @@ export default function LetterCard({ onStart }: Props) {
             transition={{ delay: 3.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }} 
             className="space-y-1 md:space-y-2"
           >
-            <p className="text-indigo-950 italic font-medium text-xl md:text-2xl">Something meaningful.</p>
-            <p className="text-slate-800 font-normal text-lg md:text-xl">Something that felt like care, not expectation.</p>
+            <p className="text-indigo-950 italic font-medium text-xl md:text-2xl">Something that feels like a warm embrace.</p>
+            <p className="text-slate-800 font-normal text-lg md:text-xl">Something that captures the quiet joy of getting to know you.</p>
           </motion.div>
 
           <motion.div 
             initial={{ opacity: 0, y: 15 }} 
             animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 7.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }}
+            transition={{ delay: 6.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }}
+            className="space-y-1 md:space-y-2"
+          >
+            <p className="text-slate-800 font-normal text-lg md:text-xl">A space where we don't have to rush.</p>
+            <p className="text-indigo-950 italic font-medium text-xl md:text-2xl">Just a quiet corner of winter to appreciate where we are.</p>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: 9.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }}
           >
             <motion.div animate={{ y: [0, -3, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
-              <p className="text-slate-800 font-normal text-lg md:text-xl">So I didn’t choose a gift. <br/> I chose a moment.</p>
+              <p className="text-slate-800 font-normal text-lg md:text-xl">So I didn’t just choose a gift. <br/> I chose a moment.</p>
             </motion.div>
           </motion.div>
 
           <motion.div 
             initial={{ opacity: 0, y: 15 }} 
             animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 10.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }}
+            transition={{ delay: 12.5, duration: 2, ease: [0.2, 0.65, 0.3, 0.9] }}
           >
-            <p className="text-indigo-950 font-medium text-lg md:text-xl">One that moves slowly — the way the best moments do.</p>
+            <p className="text-indigo-950 font-medium text-lg md:text-xl">One that unfolds slowly, the way the best stories do.</p>
             <motion.p 
               className={`mt-4 md:mt-8 text-right text-indigo-900 text-4xl md:text-5xl ${signatureFont.className}`}
               initial={{ opacity: 0, y: 10 }}
@@ -120,15 +130,15 @@ export default function LetterCard({ onStart }: Props) {
                 scale: [1, 1.02, 1]
               }}
               transition={{ 
-                opacity: { delay: 12.5, duration: 2 },
-                y: { delay: 12.5, duration: 2 },
-                default: { delay: 12.5, duration: 4, repeat: Infinity, ease: "easeInOut" }
+                opacity: { delay: 14.5, duration: 2 },
+                y: { delay: 14.5, duration: 2 },
+                default: { delay: 14.5, duration: 4, repeat: Infinity, ease: "easeInOut" }
               }}
             >For Sai.</motion.p>
           </motion.div>
           
           <motion.div 
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 13, duration: 2 }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 15, duration: 2 }}
             className="pt-4 md:pt-8 text-center"
           >
             <button 

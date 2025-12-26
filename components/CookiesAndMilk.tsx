@@ -17,11 +17,11 @@ export default function CookiesAndMilk({ onComplete }: Props) {
   const [showHint, setShowHint] = useState(true);
 
   const cookieMessages = [
-    "Your kindness makes everything softer.",
-    "You have a beautiful way of seeing the world.",
-    "Your laugh is my favorite sound.",
-    "You bring warmth wherever you go.",
-    "I appreciate you, just as you are."
+    "Your kindness has a way of softening the world around you.",
+    "You are effortlessly beautiful, inside and out.",
+    "Your laugh is quickly becoming my favorite sound.",
+    "I admire the beautiful way you see the world.",
+    "I really appreciate you, exactly as you are."
   ];
 
   const handleCookieClick = (id: number) => {

@@ -171,7 +171,7 @@ export default function FireflyGarden({ onComplete }: Props) {
             onClick={onComplete}
             className="flex items-center gap-2 px-8 py-3 bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 rounded-full backdrop-blur-md border border-amber-500/30 transition-all"
           >
-            Continue <ArrowRight size={18} />
+            See what awaits <ArrowRight size={18} />
           </button>
         </motion.div>
       )}
