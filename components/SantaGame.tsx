@@ -112,7 +112,7 @@ export default function SantaGame({ onComplete }: Props) {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      await new Promise(resolve => setTimeout(resolve, 300));
+      await new Promise(resolve => setTimeout(resolve, 1500));
     }
   };
 

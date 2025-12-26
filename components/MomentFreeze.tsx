@@ -14,7 +14,7 @@ interface Props {
 
 export default function MomentFreeze({ onComplete }: Props) {
   useEffect(() => {
-    const timer = setTimeout(onComplete, 9000); // Increased duration for new animation
+    const timer = setTimeout(onComplete, 14000); // Increased duration for new animation
     return () => clearTimeout(timer);
   }, [onComplete]);
 
