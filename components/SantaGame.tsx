@@ -106,13 +106,21 @@ export default function SantaGame({ onComplete }: Props) {
 
   const handleDownloadAll = async () => {
     for (let i = 0; i < RARE_PICTURES.length; i++) {
-      const link = document.createElement('a');
-      link.href = RARE_PICTURES[i];
-      link.download = `Narendra-Journey-${i + 1}.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      try {
+        const response = await fetch(RARE_PICTURES[i]);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `Narendra-Journey-${i + 1}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        await new Promise(resolve => setTimeout(resolve, 800)); // Slight delay to prevent browser throttling
+      } catch (error) {
+        console.error("Error downloading image:", error);
+      }
     }
   };
 

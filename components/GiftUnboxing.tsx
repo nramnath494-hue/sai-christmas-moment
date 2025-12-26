@@ -251,12 +251,12 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLet
                       setHasScrolled(true);
                     }
                     // Check if scrolled to bottom (with small buffer)
-                    if (target.scrollHeight - target.scrollTop <= target.clientHeight + 50) {
+                    if (target.scrollHeight - target.scrollTop <= target.clientHeight + 100) {
                       onLetterRead();
                     }
                   }}
                 >
-                  <p className="whitespace-pre-wrap text-[10px] md:text-xs leading-relaxed font-serif italic pb-20">
+                  <p className="whitespace-pre-wrap text-[10px] md:text-xs leading-relaxed font-serif italic pb-8">
                     {gift.content}
                   </p>
                 </div>
