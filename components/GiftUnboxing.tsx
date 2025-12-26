@@ -256,7 +256,7 @@ function GiftBox({ gift, isOpen, onOpen, index, locketOpen, setLocketOpen, onLet
                     }
                   }}
                 >
-                  <p className="whitespace-pre-wrap text-[10px] md:text-xs leading-relaxed font-serif italic pb-8">
+                  <p className="whitespace-pre-wrap text-[10px] md:text-xs leading-relaxed font-serif italic pb-4">
                     {gift.content}
                   </p>
                 </div>

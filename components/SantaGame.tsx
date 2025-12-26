@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cormorant_Garamond, Great_Vibes } from 'next/font/google';
 import { Snowflake, Trees, RefreshCw, Download, ArrowRight, Trophy } from 'lucide-react';
+import JSZip from 'jszip';
 
 const font = Cormorant_Garamond({ subsets: ['latin'], weight: ['400', '600', '700'] });
 const scriptFont = Great_Vibes({ subsets: ['latin'], weight: ['400'] });
@@ -43,6 +44,7 @@ export default function SantaGame({ onComplete }: Props) {
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
   const [winner, setWinner] = useState<Player | 'DRAW' | null>(null);
   const [gameState, setGameState] = useState<'INTRO' | 'PLAYING' | 'WON'>('INTRO');
+  const [isZipping, setIsZipping] = useState(false);
 
   const checkWinner = (squares: Player[]) => {
     const lines = [
@@ -105,23 +107,30 @@ export default function SantaGame({ onComplete }: Props) {
   };
 
   const handleDownloadAll = async () => {
-    for (let i = 0; i < RARE_PICTURES.length; i++) {
-      try {
+    setIsZipping(true);
+    try {
+      const zip = new JSZip();
+      const folder = zip.folder("A-Journey-Through-Time");
+      
+      for (let i = 0; i < RARE_PICTURES.length; i++) {
         const response = await fetch(RARE_PICTURES[i]);
         const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `Narendra-Journey-${i + 1}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-        await new Promise(resolve => setTimeout(resolve, 800)); // Slight delay to prevent browser throttling
-      } catch (error) {
-        console.error("Error downloading image:", error);
+        folder?.file(`Memory-${i + 1}.png`, blob);
       }
+
+      const content = await zip.generateAsync({ type: "blob" });
+      const url = window.URL.createObjectURL(content);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = "A-Journey-Through-Time.zip";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error zipping images:", error);
     }
+    setIsZipping(false);
   };
 
   return (
@@ -230,9 +239,14 @@ export default function SantaGame({ onComplete }: Props) {
             <div className="flex flex-col gap-3 mt-auto">
               <button 
                 onClick={handleDownloadAll}
-                className="flex items-center justify-center gap-2 w-full py-3 bg-amber-100 text-amber-900 rounded-xl hover:bg-amber-200 transition-all font-semibold"
+                disabled={isZipping}
+                className="flex items-center justify-center gap-2 w-full py-3 bg-amber-100 text-amber-900 rounded-xl hover:bg-amber-200 transition-all font-semibold disabled:opacity-70 disabled:cursor-wait"
               >
-                <Download size={18} /> Download All Memories
+                {isZipping ? (
+                  <><RefreshCw className="animate-spin" size={18} /> Packaging Memories...</>
+                ) : (
+                  <><Download size={18} /> Download Collection</>
+                )}
               </button>
               <button 
                 onClick={onComplete}

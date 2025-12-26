@@ -7,7 +7,8 @@ const font = Cormorant_Garamond({ subsets: ['latin'], weight: ['400', '600'] });
 
 export const PLAYLIST = [
   "/song1.mp3",
-  "/song2.mp3"
+  "/song2.mp3",
+  "/song3.mp3"
 ];
 
 interface Props {

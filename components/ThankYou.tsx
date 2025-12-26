@@ -68,9 +68,9 @@ export default function ThankYou({ onComplete }: Props) {
 
           <button 
             onClick={onComplete}
-            className="mt-8 text-indigo-200 hover:text-white text-xs uppercase tracking-widest flex items-center gap-2 mx-auto transition-all opacity-50 hover:opacity-100"
+            className="mt-12 px-8 py-3 bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 rounded-full backdrop-blur-md border border-amber-500/30 transition-all flex items-center gap-2 mx-auto shadow-[0_0_20px_rgba(245,158,11,0.2)]"
           >
-            Look Up <ArrowUp size={12} />
+            <span className="uppercase tracking-widest text-sm font-semibold">Tap to Look Up</span> <ArrowUp size={18} />
           </button>
         </motion.div>
       </div>
