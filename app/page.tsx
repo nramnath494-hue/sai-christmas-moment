@@ -119,7 +119,7 @@ export default function Home() {
       {act === 13 && (
         <motion.div 
           className="absolute bottom-10 right-10 z-50"
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 5 }}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 8 }}
         >
           <button 
             onClick={() => setAct(14)}

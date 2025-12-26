@@ -21,7 +21,7 @@ export default function FinalStop({ onStop }: Props) {
         <div className="space-y-3 text-indigo-100/90 text-lg md:text-xl leading-relaxed drop-shadow-lg">
           <p className="italic">"Every good and perfect gift is from above..."</p>
           <p>I've added a few more songs to keep you company. Feel free to stay, breathe, and let the music wrap around you for as long as you like.</p>
-          <p>May God bless your night with peace, warmth, and beautiful dreams.</p>
+          <p>May God bless you with peace, warmth, and beautiful moments.</p>
         </div>
 
         <button 

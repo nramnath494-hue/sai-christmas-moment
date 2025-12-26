@@ -122,7 +122,7 @@ export default function ConstellationField({ onComplete }: Props) {
           className="absolute top-[15%] md:top-1/4 w-full text-center pointer-events-none px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 4, duration: 2 }}
+          transition={{ delay: 1, duration: 2 }}
         >
           <p className={`text-indigo-200/80 text-sm md:text-xl tracking-wide ${cormorant.className}`}>Tap the glowing stars to reveal their secrets...</p>
         </motion.div>
